@@ -12,10 +12,9 @@ M.myfind_files = function()
     local ok = string.find(fh:read('*a'), 'fatal: ') == nil
     fh:close()
     if ok then
-        --require"telescope.builtin".git_files({theme = "dropdown"})
         vim.cmd([[Telescope git_files theme=dropdown]])
     else
-        require"telescope.builtin".find_files({theme = "dropdown", no_ignore = true})
+        vim.cmd([[Telescope find_files theme=dropdown no_ignore=true]])
     end
 end
 
