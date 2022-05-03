@@ -3,7 +3,7 @@
 --   - pip3 install --user fortran-language-server
 --   - rust, maintained using rustup. Compiling rust takes too long. Hence,
 --     system has only rust-bin package. Personal installation is in
---     ~/Installations/LinuxStuff/{cargo,rustup}
+--     ~/Documents/Installations/{cargo,rustup}
 -- 
 -- Following were installed in system
 --   - clang
@@ -67,16 +67,16 @@ end
 
 -------------     Settings for coc.nvim -----------------------------
 -- Highlight the symbol and its references when holding the cursor.
-vim.cmd([[
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-]])
-
+vim.api.nvim_create_autocmd("CursorHold",
+                            {pattern="*",
+                             command="silent call CocActionAsync('highlight')"}
+)
 
 -- Use K to show documentation in preview window.
 --vim.api.nvim_set_keymap("n", "K", "v:lua.coc_show_documentation()",
 --    {noremap = true, silent = true, expr = true}
 --)
-vim.keymap.set("n", "K", "<cmd>call CocActionAsync('definitionHover')<CR>",
+vim.keymap.set("n", "K", "<cmd>silent call CocActionAsync('definitionHover')<CR>",
     {}
 )
 
