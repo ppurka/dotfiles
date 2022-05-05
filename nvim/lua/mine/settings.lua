@@ -49,8 +49,9 @@ vo.wildignore:append('*/.git/*,*/.hg/*,*/.svn/*,*/.cvs/*')  -- ignore dirs
 --vo.viminfo:prepend('!')                                     -- Save and restore global variables
 
 -- some settings based on host names
+local uid = nil
 if stat == 1 then
-    local uid = tonumber(exec("echo $UID"))                 -- os.getenv("UID") returns nil
+    uid = tonumber(exec("echo $UID"))                 -- os.getenv("UID") returns nil
     if uid == nil then
         vo.backupdir = home .. "/tmp"                       -- Backup files
         vo.directory = home .. "/tmp,."                     -- Swap dir
@@ -74,6 +75,7 @@ vim.g.loaded_python_provider= 0                             -- No python2
 vim.g.loaded_ruby_provider  = 0                             -- No Ruby
 vim.g.loaded_perl_provider  = 0                             -- No Perl
 vim.g.hostname_stat         = stat                          -- save stat as a global variable
+vim.g.username_uid          = uid                           -- save uid  as a global variable
 
 if stat == 1 then
     vim.g.node_host_prog    = home .. "/Documents/Installations/nodejs/node_modules/.bin/neovim-node-host"
