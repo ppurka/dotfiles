@@ -80,12 +80,7 @@ vim.g.username_uid          = uid                           -- save uid  as a gl
 if stat == 1 then
     vim.g.node_host_prog    = home .. "/Documents/Installations/nodejs/node_modules/.bin/neovim-node-host"
     vim.g.python3_host_prog = "/usr/bin/python3"
-    vim.cmd([[ colorscheme melange ]])
 else
     vim.g.node_host_prog        = home .. "/Installations/node-v14.17.5-linux-x64/bin/neovim-node-host"
     vim.g.python3_host_prog     = home .. '/Installations/python3.6.db9/bin/python3'
-    vim.cmd([[ colorscheme molokai ]])
 end
-
--- Colorscheme
-
