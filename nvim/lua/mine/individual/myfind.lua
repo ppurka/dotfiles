@@ -1,6 +1,6 @@
 local M = {}
 
-M.myfind_files = function()
+M.find_files = function()
     -- original code
     --local ok = pcall(require"telescope.builtin".git_files, {theme = "dropdown"})
     --if not ok then require"telescope.builtin".find_files({theme = "dropdown", no_ignore = true}) end
