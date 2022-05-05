@@ -33,9 +33,10 @@ telescope.setup {
             '--column',
             '--smart-case',
             '--no-ignore',
-            '--glob=!cscope.*',
-            '--glob=!tags',
-            '--glob=!.git/*',
+            '--glob=!cscope.*',     -- ignore cscope files
+            '--glob=!tags',         -- ignore ctags files
+            '--glob=!.git/*',       -- ignore git directory
+            '--glob=!target/*',     -- ignore rust target directory
         },
     },
 }
