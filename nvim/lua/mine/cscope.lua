@@ -14,7 +14,7 @@ local setcscopefile = function()
 if vim.fn.has("cscope") then
     vim.opt.cscopetag       = true          -- use both cscope and ctags
     vim.opt.csto            = 0             -- check cscope before ctags
-    --vim.opt.nocscopeverbose = true          -- hide message when adding cscope db
+    vim.opt.cscopeverbose   = false         -- hide message when adding cscope db
 
     vim.api.nvim_create_autocmd({"BufReadPost", "BufNewFile"},
                                 {pattern = "*", callback = setcscopefile})
