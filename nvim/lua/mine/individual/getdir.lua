@@ -4,7 +4,7 @@
 -- table that is matched.
 -- If there is no match, it will return nil
 --
--- This function will search through at most 3 parent directories
+-- This function will search through at most CNT_MAX parent directories
 --
 local M = {}
 local CNT_MAX = 3
@@ -27,7 +27,6 @@ M = function(arg)
     -- recurse through up to CNT_MAX parent directories, trying to find the
     -- first pattern that can be matched in that order.
     -- We start from current directory.
-    -- Otherwise, go up to parent directory that has .git or tags
     for _, pat in ipairs(pattern) do
         local prefix = ""
         local count  = 0
