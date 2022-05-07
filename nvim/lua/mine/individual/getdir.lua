@@ -28,12 +28,13 @@ M = function(arg)
     -- first pattern that can be matched in that order.
     -- We start from current directory.
     for _, pat in ipairs(pattern) do
+        if exists(pat) then                         -- check current directory
+            founddir = currdir
+            break
+        end
+
         local prefix = ""
         local count  = 0
-        if exists(pat) then                         -- check current directory
-            prefix = "."
-            found  = true
-        end
 
         while not found and count < CNT_MAX do      -- next, recurse up
             prefix = "../" .. prefix
