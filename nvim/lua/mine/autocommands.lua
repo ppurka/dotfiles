@@ -5,10 +5,19 @@
 local setc      = function() vim.opt.filetype = "c"                             end
 local setcuda   = function() vim.opt.filetype = "cuda"                          end
 local setfor    = function() vim.opt.filetype = "fortran"                       end
-local setmake   = function() vim.opt.filetype = "make"                          end
 local settext   = function() vim.opt.filetype = "text"                          end
 local printwarn = function() vim.notify("File changed on disk. Buffer reloaded.",
                                         vim.log.levels.WARN)
+                  end
+local set8      = function()
+                    vim.opt.tabstop     = 8
+                    vim.opt.shiftwidth  = 8
+                    vim.opt.softtabstop = 8
+                    vim.opt.expandtab   = false
+                  end
+local setmake   = function()
+                    vim.opt.filetype = "make"
+                    set8()
                   end
 
 local aucmd     = vim.api.nvim_create_autocmd
@@ -19,10 +28,10 @@ aucmd(bufs,                     {pattern="*.ci",                callback = setc}
 aucmd(bufs,                     {pattern={"*.cu","*.cuh"},      callback = setcuda})
 aucmd(bufs,                     {pattern="*.fi",                callback = setfor})
 aucmd(bufs,                     {pattern="*.js",                command  = "set textwidth=0"})
-aucmd(bufs,                     {pattern="vMakefile.include",   callback = setmake})
-aucmd(bufs,                     {pattern={"*_mod"},             callback = settext})
+aucmd(bufs,                     {pattern="vMakefile.include*",  callback = setmake})
+aucmd(bufs,                     {pattern="*_mod",               callback = settext})
 aucmd("FileChangedShellPost",   {pattern = "*",                 callback = printwarn})
-aucmd("FileType",               {pattern="make",                command = "set ts=8 sw=8 sts=8 noet"})
+aucmd("FileType",               {pattern="make",                callback = set8})
 aucmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"},
                                 {pattern = "*",                 command = "checktime"})
 
