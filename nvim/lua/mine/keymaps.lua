@@ -16,7 +16,8 @@ keymap("", "<Space>", "<Nop>", opts)
 
 
 ----------------------- NORMAL MODE -------------------------
-keymap("n", "<C-F2>",    ":Telescope oldfiles theme=dropdown<CR>",                  opts) -- previously opened files
+keymap("n", "<C-F2>",    ":Telescope oldfiles  theme=dropdown<CR>",     opts) -- previously opened files
+keymap("n", "<C-F3>",    ":Telescope live_grep theme=dropdown<CR>",     opts) -- search in currdir
 keymap("n", "<F2>",      ":lua require('mine.individual.myfind')()<CR>",opts) -- look for files
 keymap("n", "<F3>",      ":lua require('mine.individual.mygrep')()<CR>",opts) -- search all files
 keymap("n", "<F4>",      ":Vista!!<CR>",                        opts)   -- toggle tag bar
@@ -40,8 +41,9 @@ keymap("n", "<S-Right>", "gt",                                  opts)   -- next 
 
 
 ----------------------- INSERT MODE -------------------------
-keymap("i", "<C-F2>",    "<Esc>:Telescope oldfiles theme=dropdown<CR>",                 opts)
-keymap("i", "<F2>",      "<Esc>:lua require('mine.individual.myfind')()<CR>",opts)
+keymap("i", "<C-F2>",    "<Esc>:Telescope oldfiles  theme=dropdown<CR>",     opts) -- previously opened files
+keymap("i", "<C-F3>",    "<Esc>:Telescope live_grep theme=dropdown<CR>",     opts) -- search in currdir
+keymap("i", "<F2>",      "<Esc>:lua require('mine.individual.myfind')()<CR>",opts) -- look for files
 keymap("i", "<F3>",      "<Esc>:lua require('mine.individual.mygrep')()<CR>",opts) -- search all files
 keymap("i", "<F4>",      "<Esc>:Vista!!<CR>",                   opts)
 keymap("i", "<C-a>",     "<Home>",                              opts)
