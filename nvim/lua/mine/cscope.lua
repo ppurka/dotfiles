@@ -4,9 +4,9 @@ local getdir = require("mine.individual.getdir")
 local setcscopefile = function()
                         local dir = getdir("cscope.out")
                         if dir ~= nil then
-                            vim.cmd("cs add " .. dir .. "/" .. "cscope.out " .. -- cscope file
-                                    dir ..                                      -- cscope pre-path
-                                    " -d")                                      -- do not update cscope
+                            vim.cmd("cs add " .. "cscope.out " ..   -- cscope file
+                                    dir ..                          -- cscope pre-path
+                                    " -d")                          -- do not update cscope
                         end
                       end
 
