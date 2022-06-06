@@ -2,6 +2,16 @@
 -- Autocommands
 
 -- lua functions for settings stuff
+local setbg     = function()
+                    if vim.g.only_laptop then
+                        local bg = vim.api.nvim_get_option("background")
+                        if (vim.g.night_time  and bg ~= "dark") then
+                            vim.opt.background = "dark"
+                        elseif ((not vim.g.night_time) and bg ~= "light") then
+                            vim.opt.background = "light"
+                        end
+                    end
+                  end
 local setc      = function() vim.opt.filetype = "c"                             end
 local setcuda   = function() vim.opt.filetype = "cuda"                          end
 local setfor    = function() vim.opt.filetype = "fortran"                       end
@@ -33,7 +43,8 @@ aucmd(bufs,                     {pattern="*_mod",               callback = sette
 aucmd("FileChangedShellPost",   {pattern = "*",                 callback = printwarn})
 aucmd("FileType",               {pattern="make",                callback = set8})
 aucmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"},
-                                {pattern = "*",                 command = "checktime"})
+                                {pattern = "*",                 command  = "checktime"})
+aucmd("FocusGained",            {pattern = "*",                 callback = setbg})
 
 -- old stuff -- using vimscript
 --vim.cmd([[

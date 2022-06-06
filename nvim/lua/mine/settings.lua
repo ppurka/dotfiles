@@ -9,11 +9,14 @@ end
 
 -- Settings set via "set" in vimscript
 local home = os.getenv("HOME")
-local stat = tonumber(exec("hostname -d | grep -c localdomain"))
+local disp = tonumber(exec("xrandr |& grep -scw connected"))-- number of displays - used to determine if only laptop is connected
+local hour = tonumber(exec("date +%H"))                     -- current hour in 24 hour format
+local islpt= tonumber(exec("hostname -d | grep -c localdomain")) == 1   -- 1 => local laptop/desktop
+local day  = (7 < hour) and (hour < 19)                     -- day time
 local vo   = vim.opt                                        -- shortcut for settings below
 vo.autochdir    = true                                      -- Auto cd to current buffer, no need with telescope
 vo.autoread     = true                                      -- Monitor file changes
-vo.background   = "dark"                                    -- dark/light BG
+vo.background   = (day and islpt) and "light" or "dark"     -- default dark/light BG
 vo.clipboard    = "unnamed,unnamedplus"                     -- Copy / Paste from both secondary,primary registers
 vo.expandtab    = true                                      -- No tab characters allowed
 vo.formatoptions= "tcroq1nj"                                -- format options for all cases
@@ -50,8 +53,8 @@ vo.wildignore:append('*/.git/*,*/.hg/*,*/.svn/*,*/.cvs/*')  -- ignore dirs
 
 -- some settings based on host names
 local uid = nil
-if stat == 1 then
-    uid = tonumber(exec("echo $UID"))                 -- os.getenv("UID") returns nil
+if islpt then
+    uid = tonumber(exec("echo $UID"))                       -- os.getenv("UID") returns nil
     if uid == nil then
         vo.backupdir = home .. "/tmp"                       -- Backup files
         vo.directory = home .. "/tmp,."                     -- Swap dir
@@ -74,10 +77,14 @@ vim.g.did_load_filetypes    = 0                             -- disable use of fi
 vim.g.loaded_python_provider= 0                             -- No python2
 vim.g.loaded_ruby_provider  = 0                             -- No Ruby
 vim.g.loaded_perl_provider  = 0                             -- No Perl
-vim.g.hostname_stat         = stat                          -- save stat as a global variable
+
+-- custom global variables
+vim.g.is_laptop             = islpt                         -- save islpt as a global variable
+vim.g.night_time            = not day                       -- check if it is night time
+vim.g.only_laptop           = (disp == 1) and islpt         -- true if only one display (laptop) is connected.
 vim.g.username_uid          = uid                           -- save uid  as a global variable
 
-if stat == 1 then
+if islpt then
     vim.g.node_host_prog    = home .. "/Documents/Installations/nodejs/node_modules/.bin/neovim-node-host"
     vim.g.python3_host_prog = "/usr/bin/python3"
 else

@@ -3,14 +3,15 @@
 -- one function common to all GUI
 -- fonts are controlled via ~/.config/fontconfig/conf.d/01-fonts.conf
 local function common()
-    if (vim.g.hostname_stat == 0    or
+    if (not vim.g.is_laptop         or
         vim.g.username_uid == nil   or
         vim.g.username_uid == 0) then
         vim.opt.background  = "dark"                            -- dark background in GUI
         vim.opt.guifont     = "monospace:h12"                   -- font for gui windows
     else
-        vim.opt.background  = "light"                           -- light background in GUI
-        vim.opt.guifont     = "monospace:h11"                   -- font for gui windows
+        vim.opt.guifont = "monospace:h" ..
+                          (vim.g.only_laptop and "8" or "11")   -- small @ laptop
+        -- vim.opt.background = "light"                         -- controlled via aucmd now
     end
 end
 
