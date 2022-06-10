@@ -3,14 +3,14 @@
 
 -- lua functions for settings stuff
 local setbg     = function()
-                    if vim.g.only_laptop then
+                    --if vim.g.only_laptop then
                         local bg = vim.api.nvim_get_option("background")
                         if (vim.g.night_time  and bg ~= "dark") then
                             vim.opt.background = "dark"
                         elseif ((not vim.g.night_time) and bg ~= "light") then
                             vim.opt.background = "light"
                         end
-                    end
+                    --end
                   end
 local setc      = function() vim.opt.filetype = "c"                             end
 local setcuda   = function() vim.opt.filetype = "cuda"                          end

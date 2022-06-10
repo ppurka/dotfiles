@@ -6,7 +6,7 @@ local function common()
     if (not vim.g.is_laptop         or
         vim.g.username_uid == nil   or
         vim.g.username_uid == 0) then
-        vim.opt.background  = "dark"                            -- dark background in GUI
+        -- vim.opt.background  = "dark"                         -- dark background in GUI
         vim.opt.guifont     = "monospace:h12"                   -- font for gui windows
     else
         vim.opt.guifont = "monospace:h" ..
