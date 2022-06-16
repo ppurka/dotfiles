@@ -3,7 +3,7 @@
 local Plug = vim.fn['plug#']
 vim.fn['plug#begin']('~/.config/nvim/plugged')
 
-Plug 'liuchengxu/vista.vim'                         -- Tagbar
+Plug('danymat/neogen')                              -- doxygen / documentation
 Plug('iamcco/markdown-preview.nvim', {              -- markdown preview
    ['do'] = function()
        vim.cmd([[mkdp#util#install()]])
@@ -14,11 +14,13 @@ Plug('iamcco/markdown-preview.nvim', {              -- markdown preview
 Plug 'inkarkat/vim-ingo-library'                    -- Needed by vim-mark
 Plug 'inkarkat/vim-mark'                            -- Multiple colors
 Plug 'lewis6991/impatient.nvim'                     -- Cache lua based plugins to improve startup
+Plug 'liuchengxu/vista.vim'                         -- Tagbar
 Plug 'kyazdani42/nvim-web-devicons'                 -- for lualine
 Plug('neoclide/coc.nvim', {branch = 'release'})     -- coc.nvim; ~/.config/coc
 Plug 'nvim-lualine/lualine.nvim'                    -- statusline
 Plug 'nvim-lua/plenary.nvim'                        -- needed by telescope
 Plug 'nvim-telescope/telescope.nvim'                -- telescope
+Plug 'nvim-treesitter/nvim-treesitter'              -- needed by neogen
 Plug 'savq/melange'                                 -- Colorscheme
 Plug 'vim-scripts/auto-pairs-gentle'                -- need extra config
 vim.fn['plug#end']()
@@ -36,6 +38,10 @@ require('lualine').setup({
    options = { theme = 'gruvbox', icons_enabled = true }
    })
 ---------------- END   lualine     configuration  ------------------
+
+---------------- START neogen      configuration  ------------------
+require('neogen').setup({})
+---------------- END   neogen      configuration  ------------------
 
 ---------------- START nvim.lsp configuration     ------------------
 -- This is internal nvim lsp configuration.
