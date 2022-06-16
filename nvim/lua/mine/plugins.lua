@@ -20,7 +20,11 @@ Plug('neoclide/coc.nvim', {branch = 'release'})     -- coc.nvim; ~/.config/coc
 Plug 'nvim-lualine/lualine.nvim'                    -- statusline
 Plug 'nvim-lua/plenary.nvim'                        -- needed by telescope
 Plug 'nvim-telescope/telescope.nvim'                -- telescope
-Plug 'nvim-treesitter/nvim-treesitter'              -- needed by neogen
+Plug('nvim-treesitter/nvim-treesitter', {           -- needed by neogen
+    ['do'] = function()
+        vim.cmd([[TSUpdate]])
+    end
+})
 Plug 'savq/melange'                                 -- Colorscheme
 Plug 'vim-scripts/auto-pairs-gentle'                -- need extra config
 vim.fn['plug#end']()
