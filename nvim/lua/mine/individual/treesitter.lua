@@ -1,6 +1,8 @@
 local ok, configs = pcall(require, "nvim-treesitter.configs")
 if not ok then return end
 
+require("nvim-treesitter.install").prefer_git = true    -- use proxy from gitconfig
+
 configs.setup {
     ensure_installed = {
         "bash"
