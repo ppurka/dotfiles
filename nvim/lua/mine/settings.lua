@@ -8,15 +8,16 @@ local function exec(cmd)
 end
 
 -- Settings set via "set" in vimscript
-local home = os.getenv("HOME")
-local disp = tonumber(exec("xrandr |& grep -scw connected"))-- number of displays - used to determine if only laptop is connected
-local hour = tonumber(exec("date +%H"))                     -- current hour in 24 hour format
-local islpt= tonumber(exec("hostname -d | grep -c localdomain")) == 1   -- 1 => local laptop/desktop
-local day  = (7 < hour) and (hour < 19)                     -- day time
-local vo   = vim.opt                                        -- shortcut for settings below
+local hour      = tonumber(exec("date +%H"))                -- current hour in 24 hour format
+local day       = (7 < hour) and (hour < 19)                -- day time
+local disp      = tonumber(exec("xrandr |& grep -scw connected"))-- number of displays - used to determine if only laptop is connected
+local home      = os.getenv("HOME")
+local islpt     = tonumber(exec("hostname -d | grep -c localdomain")) == 1  -- 1 => local laptop/desktop
+local isterm    = tonumber(exec("tty -s && echo 1 || echo 0"))        == 1  -- whether running in terminal
+local vo        = vim.opt                                   -- shortcut for settings below
 vo.autochdir    = true                                      -- Auto cd to current buffer, no need with telescope
 vo.autoread     = true                                      -- Monitor file changes
-vo.background   = day and "light" or "dark"                 -- default dark/light BG
+vo.background   = (day and not isterm) and "light" or "dark"-- default dark/light BG
 vo.clipboard    = "unnamed,unnamedplus"                     -- Copy / Paste from both secondary,primary registers
 vo.expandtab    = true                                      -- No tab characters allowed
 vo.formatoptions= "tcroq1nj"                                -- format options for all cases
