@@ -81,6 +81,7 @@ vim.g.loaded_perl_provider  = 0                             -- No Perl
 
 -- custom global variables
 vim.g.is_laptop             = islpt                         -- save islpt as a global variable
+vim.g.is_term               = isterm                        -- save whether we are running in terminal
 vim.g.night_time            = not day                       -- check if it is night time
 vim.g.only_laptop           = (disp == 1) and islpt         -- true if only one display (laptop) is connected.
 vim.g.username_uid          = uid                           -- save uid  as a global variable

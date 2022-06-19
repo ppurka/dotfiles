@@ -7,7 +7,9 @@ local setbg     = function()
                         local bg = vim.api.nvim_get_option("background")
                         if (vim.g.night_time  and bg ~= "dark") then
                             vim.opt.background = "dark"
-                        elseif ((not vim.g.night_time) and bg ~= "light") then
+                        elseif ((not vim.g.night_time)  and
+                                (not vim.g.is_term)     and
+                                bg ~= "light") then
                             vim.opt.background = "light"
                         end
                     --end
