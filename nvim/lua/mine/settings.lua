@@ -43,9 +43,6 @@ vo.wildignore:append('*.flac,*.ogg,*.mpc,*.avi,*.mp4')      -- ignore files
 vo.wildignore:append('*.bz2,*.mpeg')                        -- ignore files
 vo.wildignore:append('*/.git/*,*/.hg/*,*/.svn/*,*/.cvs/*')  -- ignore dirs
 
--- disabled for now
---vo.viminfo:prepend('!')                                     -- Save and restore global variables
-
 -- some settings based on host names
 if islpt then
     if uid == nil then

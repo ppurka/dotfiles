@@ -56,23 +56,3 @@ aucmd("FileType",               {pattern="make",                callback = set8}
 aucmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"},
                                 {pattern = "*",                 command  = "checktime"})
 aucmd("FocusGained",            {pattern = "*",                 callback = setbg})
-
--- old stuff -- using vimscript
---vim.cmd([[
---    autocmd BufReadPost,BufNewFile  *                   set     formatoptions=tcroq1nj
---    autocmd BufReadPost,BufNewFile  *.ci                set     filetype=c
---    autocmd BufReadPost,BufNewFile  *.cu                set     filetype=cuda
---    autocmd BufReadPost,BufNewFile  *.cu                set     filetype=cuda
---    autocmd BufReadPost,BufNewFile  *.cuh               set     filetype=cuda
---    autocmd BufReadPost,BufNewFile  *.fi                set     filetype=fortran
---    autocmd BufReadPost,BufNewFile  *.js                set     textwidth=0
---    autocmd BufReadPost,BufNewFile  vMakefile.include   set     filetype=make
---    autocmd BufReadPost,BufNewFile  tango3_mod          set     filetype=text
---    autocmd BufReadPost,BufNewFile  g2_mod              set     filetype=text
---    autocmd FileType                make                set     ts=8 sw=8 sts=8 noet
---    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
---            \                                           checktime
---    autocmd FileChangedShellPost    *
---            \                                           echohl WarningMsg |
---            \                                           echo "File changed on disk. Buffer reloaded." | echohl None
---]])

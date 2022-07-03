@@ -5,7 +5,6 @@ require("mine.individual.coc_nvim")
 
 -- following are for telescope
 require("mine.individual.telescope")
-require("mine.individual.myfind")
 
 -- following is for treesitter
 require("mine.individual.treesitter")
