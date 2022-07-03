@@ -1,19 +1,13 @@
--- local functions
--- use function instead of os.execute. neovide tends to hang on os.execute
-local function exec(cmd)
-    local fh = assert(io.popen(cmd))
-    local output = fh:read('*a')
-    fh:close()
-    return output
-end
+-- Some global variables
+local getglobal = require("mine.individual.getglobal")
+local day       = not getglobal("night_time")
+local islpt     = getglobal("is_laptop")
+local isterm    = getglobal("is_term")
+local onlylptp  = getglobal("only_laptop")
+local uid       = getglobal("username_uid")
 
 -- Settings set via "set" in vimscript
-local hour      = tonumber(exec("date +%H"))                -- current hour in 24 hour format
-local day       = (7 < hour) and (hour < 19)                -- day time
-local disp      = tonumber(exec("xrandr |& grep -scw connected"))-- number of displays - used to determine if only laptop is connected
 local home      = os.getenv("HOME")
-local islpt     = tonumber(exec("hostname -d | grep -c localdomain")) == 1  -- 1 => local laptop/desktop
-local isterm    = tonumber(exec("tty -s && echo 1 || echo 0"))        == 1  -- whether running in terminal
 local vo        = vim.opt                                   -- shortcut for settings below
 vo.autochdir    = true                                      -- Auto cd to current buffer, no need with telescope
 vo.autoread     = true                                      -- Monitor file changes
@@ -53,9 +47,7 @@ vo.wildignore:append('*/.git/*,*/.hg/*,*/.svn/*,*/.cvs/*')  -- ignore dirs
 --vo.viminfo:prepend('!')                                     -- Save and restore global variables
 
 -- some settings based on host names
-local uid = nil
 if islpt then
-    uid = tonumber(exec("echo $UID"))                       -- os.getenv("UID") returns nil
     if uid == nil then
         vo.backupdir = home .. "/tmp"                       -- Backup files
         vo.directory = home .. "/tmp,."                     -- Swap dir
@@ -79,11 +71,11 @@ vim.g.loaded_python_provider= 0                             -- No python2
 vim.g.loaded_ruby_provider  = 0                             -- No Ruby
 vim.g.loaded_perl_provider  = 0                             -- No Perl
 
--- custom global variables
+-- set the custom global variables
 vim.g.is_laptop             = islpt                         -- save islpt as a global variable
 vim.g.is_term               = isterm                        -- save whether we are running in terminal
 vim.g.night_time            = not day                       -- check if it is night time
-vim.g.only_laptop           = (disp == 1) and islpt         -- true if only one display (laptop) is connected.
+vim.g.only_laptop           = onlylptp                      -- true if only one display (laptop) is connected.
 vim.g.username_uid          = uid                           -- save uid  as a global variable
 
 if islpt then

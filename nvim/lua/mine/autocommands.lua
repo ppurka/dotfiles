@@ -1,9 +1,11 @@
 
 -- Autocommands
+local getglobal = require("mine.individual.getglobal")
 
 -- lua functions for settings stuff
 local setbg     = function()
                     local bg = vim.api.nvim_get_option("background")
+                    vim.g.night_time = getglobal("night_time")
                     if (vim.g.night_time  and bg ~= "dark") then
                         vim.opt.background = "dark"
                     elseif ((not vim.g.night_time)  and
@@ -12,8 +14,13 @@ local setbg     = function()
                         vim.opt.background = "light"
                     end
                     if (vim.g.is_laptop) then
-                        vim.opt.guifont = "monospace:h" ..
-                                          (vim.g.only_laptop and "8" or "11")   -- small @ laptop
+                        vim.g.only_laptop = getglobal("only_laptop")
+                        local guifont = vim.api.nvim_get_option("guifont")
+                        local to_font = "monospace:h" ..
+                                        (vim.g.only_laptop and "8" or "11")   -- small @ laptop
+                        if to_font ~= guifont then
+                            vim.opt.guifont = to_font
+                        end
                     end
                   end
 local setc      = function() vim.opt.filetype = "c"                             end
