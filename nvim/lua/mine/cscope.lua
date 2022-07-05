@@ -2,11 +2,13 @@
 --
 local getdir = require("mine.individual.getdir")
 local setcscopefile = function()
-                        local dir = getdir("cscope.out")
-                        if dir ~= nil then
-                            vim.cmd("cs add " .. "cscope.out " ..   -- cscope file
-                                    dir ..                          -- cscope pre-path
-                                    " -d")                          -- do not update cscope
+                        if vim.o.filetype ~= "qf" then
+                          local dir = getdir("cscope.out")
+                          if dir ~= nil then
+                              vim.cmd("cs add " .. "cscope.out " .. -- cscope file
+                                      dir ..                        -- cscope pre-path
+                                      " -d")                        -- do not update cscope
+                          end
                         end
                       end
 

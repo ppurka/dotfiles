@@ -13,6 +13,11 @@ local setbg     = function()
                             bg ~= "light") then
                         vim.opt.background = "light"
                     end
+                    if (bg ~= vim.opt.background) then -- reload lualine
+                        require('lualine').setup({
+                            options = { theme = 'gruvbox', icons_enabled = true }
+                        })
+	                end
                     if (vim.g.is_laptop) then
                         vim.g.only_laptop = getglobal("only_laptop")
                         local guifont = vim.api.nvim_get_option("guifont")
