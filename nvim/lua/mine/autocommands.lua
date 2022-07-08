@@ -35,7 +35,7 @@ local setc      = function() vim.opt.filetype = "c"                             
 local setcuda   = function() vim.opt.filetype = "cuda"                          end
 local setfor    = function() vim.opt.filetype = "fortran"                       end
 local setjs     = function() vim.o.textwidth  = 0
-                             if vim.g.is_laptop then
+                             if not vim.g.is_laptop then
                                 vim.b.coc_diagnostic_disable = 1
                              end
                   end
