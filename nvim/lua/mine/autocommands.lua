@@ -3,6 +3,9 @@
 local getglobal = require("mine.individual.getglobal")
 
 -- lua functions for settings stuff
+local printwarn = function() vim.notify("File changed on disk. Buffer reloaded.",
+                                        vim.log.levels.WARN)
+                  end
 local setbg     = function()
                     local bg = vim.api.nvim_get_option("background")
                     vim.g.night_time = getglobal("night_time")
@@ -31,10 +34,12 @@ local setbg     = function()
 local setc      = function() vim.opt.filetype = "c"                             end
 local setcuda   = function() vim.opt.filetype = "cuda"                          end
 local setfor    = function() vim.opt.filetype = "fortran"                       end
-local settext   = function() vim.opt.filetype = "text"                          end
-local printwarn = function() vim.notify("File changed on disk. Buffer reloaded.",
-                                        vim.log.levels.WARN)
+local setjs     = function() vim.o.textwidth  = 0
+                             if vim.g.is_laptop then
+                                vim.b.coc_diagnostic_disable = 1
+                             end
                   end
+local settext   = function() vim.opt.filetype = "text"                          end
 local set8      = function()
                     vim.opt.tabstop     = 8
                     vim.opt.shiftwidth  = 8
@@ -53,9 +58,9 @@ local bufs      = {"BufReadPost", "BufNewFile"}
 aucmd(bufs,                     {pattern="*.ci",                callback = setc})
 aucmd(bufs,                     {pattern={"*.cu","*.cuh"},      callback = setcuda})
 aucmd(bufs,                     {pattern="*.fi",                callback = setfor})
-aucmd(bufs,                     {pattern="*.js",                command  = "set textwidth=0"})
 aucmd(bufs,                     {pattern="vMakefile.include*",  callback = setmake})
 aucmd(bufs,                     {pattern="*_mod",               callback = settext})
+aucmd("BufReadPre",             {pattern="*.js",                callback = setjs})
 aucmd("FileChangedShellPost",   {pattern = "*",                 callback = printwarn})
 aucmd("FileType",               {pattern="make",                callback = set8})
 aucmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"},
