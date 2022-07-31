@@ -43,7 +43,7 @@ keymap("n", "<S-Right>", "gt",                                  opts)   -- next 
 ----------------------- INSERT MODE -------------------------
 keymap("i", "<C-F2>",    "<Esc>:Telescope oldfiles  theme=dropdown<CR>",     opts) -- previously opened files
 keymap("i", "<C-F3>",    "<Esc>:Telescope live_grep theme=dropdown<CR>",     opts) -- search in currdir
-keymap("i", "<S-F3>",    "<Esc>:lua require('mine.individual.myspel')()<CR>",opts) -- rev spell search or ts,sts
+keymap("i", "<S-F3>",    "<Esc>:lua require('mine.individual.myspel')()<CR>a",opts)-- rev spell search or ts,sts
 keymap("i", "<F2>",      "<Esc>:lua require('mine.individual.myfind')()<CR>",opts) -- look for files
 keymap("i", "<F3>",      "<Esc>:lua require('mine.individual.mygrep')()<CR>",opts) -- search all files
 keymap("i", "<F4>",      "<Esc>:Vista!!<CR>",                   opts)
