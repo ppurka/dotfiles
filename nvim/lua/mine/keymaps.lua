@@ -18,6 +18,7 @@ keymap("", "<Space>", "<Nop>", opts)
 ----------------------- NORMAL MODE -------------------------
 keymap("n", "<C-F2>",    ":Telescope oldfiles  theme=dropdown<CR>",     opts) -- previously opened files
 keymap("n", "<C-F3>",    ":Telescope live_grep theme=dropdown<CR>",     opts) -- search in currdir
+keymap("n", "<S-F3>",    ":lua require('mine.individual.myspel')()<CR>",opts) -- spell search or ts,sts
 keymap("n", "<F2>",      ":lua require('mine.individual.myfind')()<CR>",opts) -- look for files
 keymap("n", "<F3>",      ":lua require('mine.individual.mygrep')()<CR>",opts) -- search all files
 keymap("n", "<F4>",      ":Vista!!<CR>",                        opts)   -- toggle tag bar
@@ -32,7 +33,6 @@ keymap("n", "<C-Down>",  ":resize +2<CR>",                      opts)   -- resiz
 keymap("n", "<C-Left>",  ":vertical resize -2<CR>",             opts)   -- resize with arrows
 keymap("n", "<C-Right>", ":vertical resize +2<CR>",             opts)   -- resize with arrows
 keymap("n", "<S-F2>",    ":set ts=2 sts=2 sw=2 et<CR>",         opts)
-keymap("n", "<S-F3>",    ":set ts=3 sts=3 sw=3 et<CR>",         opts)
 keymap("n", "<S-F4>",    ":set ts=4 sts=4 sw=4 et<CR>",         opts)
 keymap("n", "<S-F8>",    ":set ts=8 sts=8 sw=8<CR>",            opts)
 keymap("n", "<S-Left>",  "gT",                                  opts)   -- previous tab
@@ -43,6 +43,7 @@ keymap("n", "<S-Right>", "gt",                                  opts)   -- next 
 ----------------------- INSERT MODE -------------------------
 keymap("i", "<C-F2>",    "<Esc>:Telescope oldfiles  theme=dropdown<CR>",     opts) -- previously opened files
 keymap("i", "<C-F3>",    "<Esc>:Telescope live_grep theme=dropdown<CR>",     opts) -- search in currdir
+keymap("i", "<S-F3>",    "<Esc>:lua require('mine.individual.myspel')()<CR>",opts) -- rev spell search or ts,sts
 keymap("i", "<F2>",      "<Esc>:lua require('mine.individual.myfind')()<CR>",opts) -- look for files
 keymap("i", "<F3>",      "<Esc>:lua require('mine.individual.mygrep')()<CR>",opts) -- search all files
 keymap("i", "<F4>",      "<Esc>:Vista!!<CR>",                   opts)
@@ -54,7 +55,6 @@ keymap("i", "<C-k>",     "<Up>",                                opts)
 keymap("i", "<C-l>",     "<Right>",                             opts)
 keymap("i", "<C-s>",     "<Esc>:w<CR>a",                        opts)
 keymap("i", "<S-F2>",    "<Esc>:set ts=2 sts=2 sw=2 et<CR>a",   opts)
-keymap("i", "<S-F3>",    "<Esc>:set ts=3 sts=3 sw=3 et<CR>a",   opts)
 keymap("i", "<S-F4>",    "<Esc>:set ts=4 sts=4 sw=4 et<CR>a",   opts)
 keymap("i", "<S-F8>",    "<Esc>:set ts=8 sts=8 sw=8<CR>a",      opts)
 keymap("i", "<S-Left>",  "<Esc>gTa",                            opts)
