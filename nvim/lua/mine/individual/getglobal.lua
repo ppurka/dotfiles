@@ -29,7 +29,7 @@ M = function(arg)
 
     if (arg == "night_time") then
         local hour  = tonumber(exec("date +%H"))    -- current hour in 24 hour format
-        local day   = (7 <= hour) and (hour <= 19)  -- day time
+        local day   = (7 <= hour) and (hour < 19)   -- day time
         return not day
 
     elseif (arg == "is_laptop") then
