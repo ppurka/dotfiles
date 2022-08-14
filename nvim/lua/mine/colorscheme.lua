@@ -6,3 +6,6 @@ if vim.g.is_laptop and vim.g.username_uid == 0 then         -- root @ laptop
 else
     vim.cmd([[colorscheme melange]])
 end
+
+-- Set menu highlight for coc.nvim. Link it to usual menu selection
+vim.cmd[[highlight! link CocMenuSel PmenuSel]]

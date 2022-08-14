@@ -29,22 +29,47 @@ function _G.coc_check_back_space()
 end
 
 -- intelligent tab completion
-function _G.coc_on_tab()
-   if vim.fn.pumvisible() == 1 then
-       return vim.fn['coc#_select_confirm']()
-   else
-       if vim.fn['coc#expandableOrJumpable']() == 1 then
-           return myterminfo'<C-r>' ..
-                  "=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])" ..
-                  myterminfo'<CR>'
-       else
-           if _G.coc_check_back_space() then
-               return myterminfo'<TAB>'
-           else
-               return vim.fn['coc#refresh']()
-           end
-       end
-   end
+function _G.coc_on_tab(fwd)
+    if fwd == 1 then    -- tab
+        if vim.fn['coc#util#api_version']() < 31 then   -- old APIs
+            if vim.fn.pumvisible() == 1 then
+                return vim.fn['coc#_select_confirm']()
+            else
+                if vim.fn['coc#expandableOrJumpable']() == 1 then
+                    return myterminfo'<C-r>' ..
+                        "=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])" ..
+                        myterminfo'<CR>'
+                else
+                    if _G.coc_check_back_space() then
+                        return myterminfo'<TAB>'
+                    else
+                        return vim.fn['coc#refresh']()
+                    end
+                end
+            end
+        else    -- new API from coc 0.0.82
+            if vim.fn['coc#pum#visible']() == 1 then
+                return vim.fn['coc#pum#next'](1)
+            else
+                -- TODO: enable snippet support
+                if _G.coc_check_back_space() then
+                    return myterminfo('<TAB>')
+                else
+                    return vim.fn['coc#refresh']()
+                end
+            end
+        end
+    else    -- Shift-tab
+        if vim.fn['coc#util#api_version']() < 31 then   -- old APIs
+            return vim.fn['coc#refresh']()              -- do nothing?
+        else    -- new API from coc 0.0.82
+            if vim.fn['coc#pum#visible']() == 1 then
+                return vim.fn['coc#pum#prev'](1)
+            else
+                return myterminfo('<C-h>')
+            end
+        end
+    end
 end
 
 ---- Hover function definition when K is pressed over a function
@@ -82,8 +107,12 @@ vim.keymap.set("n", "K", "<cmd>silent call CocActionAsync('definitionHover')<CR>
 
 -- Set the function for <TAB>
 vim.api.nvim_set_keymap("i", "<TAB>",
-    'v:lua.coc_on_tab()',
+    'v:lua.coc_on_tab(1)',
     {noremap = true, silent = true, expr = true}
+)
+vim.api.nvim_set_keymap("i", "<S-TAB>",
+    'v:lua.coc_on_tab(0)',
+    {noremap = true, silent = false, expr = true}
 )
 
 ------------- End Settings for coc.nvim -----------------------------
