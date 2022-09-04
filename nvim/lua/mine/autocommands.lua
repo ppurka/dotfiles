@@ -1,34 +1,31 @@
-
 -- Autocommands
 local getglobal = require("mine.individual.getglobal")
+local myfonts   = require("mine.individual.myfonts")
 
 -- lua functions for settings stuff
 local printwarn = function() vim.notify("File changed on disk. Buffer reloaded.",
                                         vim.log.levels.WARN)
                   end
 local setbg     = function()
-                    local bg = vim.api.nvim_get_option("background")
+                    -- First set background
+                    local bgprev = vim.api.nvim_get_option("background")
                     vim.g.night_time = getglobal("night_time")
-                    if (vim.g.night_time  and bg ~= "dark") then
+                    if (vim.g.night_time  and bgprev ~= "dark") then
                         vim.opt.background = "dark"
                     elseif ((not vim.g.night_time)  and
                             (not vim.g.is_term)     and
-                            bg ~= "light") then
+                            bgprev ~= "light") then
                         vim.opt.background = "light"
                     end
-                    if (bg ~= vim.opt.background) then -- reload lualine
+                    if (bgprev ~= vim.opt.background) then -- reload lualine
                         require('lualine').setup({
                             options = { theme = 'gruvbox', icons_enabled = true }
                         })
 	                end
+
+                    -- Next, set font
                     if (vim.g.is_laptop) then
-                        vim.g.only_laptop = getglobal("only_laptop")
-                        local guifont = vim.api.nvim_get_option("guifont")
-                        local to_font = "monospace:h" ..
-                                        (vim.g.only_laptop and "8" or "11")   -- small @ laptop
-                        if to_font ~= guifont then
-                            vim.opt.guifont = to_font
-                        end
+                        myfonts(2)
                     end
                   end
 local setc      = function() vim.opt.filetype = "c"                             end

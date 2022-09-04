@@ -72,6 +72,8 @@ vim.g.loaded_ruby_provider  = 0                             -- No Ruby
 vim.g.loaded_perl_provider  = 0                             -- No Perl
 
 -- set the custom global variables
+vim.g.custom_font           = 0                             -- whether we have set a custom font
+vim.g.gui_font_size         = 11                            -- sane default font size
 vim.g.is_laptop             = islpt                         -- save islpt as a global variable
 vim.g.is_term               = isterm                        -- save whether we are running in terminal
 vim.g.night_time            = not day                       -- check if it is night time
