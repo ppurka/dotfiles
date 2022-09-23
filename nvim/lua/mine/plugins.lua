@@ -3,7 +3,6 @@
 local Plug = vim.fn['plug#']
 vim.fn['plug#begin']('~/.config/nvim/plugged')
 
-Plug('danymat/neogen')                              -- doxygen / documentation
 Plug('iamcco/markdown-preview.nvim', {              -- markdown preview
    ['do'] = function()
        vim.cmd([[mkdp#util#install()]])
@@ -42,10 +41,6 @@ require('lualine').setup({
    options = { theme = 'gruvbox', icons_enabled = true }
    })
 ---------------- END   lualine     configuration  ------------------
-
----------------- START neogen      configuration  ------------------
-require('neogen').setup({})
----------------- END   neogen      configuration  ------------------
 
 ---------------- START nvim.lsp configuration     ------------------
 -- This is internal nvim lsp configuration.
