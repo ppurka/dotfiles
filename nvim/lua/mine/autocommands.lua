@@ -17,8 +17,8 @@ local setbg     = function()
                             bgprev ~= "light") then
                         vim.opt.background = "light"
                     end
-                    if (bgprev ~= vim.opt.background) then -- reload lualine
-                        require('lualine').setup({
+                    if (bgprev ~= vim.opt.background) then
+                        require('lualine').setup({              -- reload lualine
                             options = { theme = 'gruvbox', icons_enabled = true }
                         })
 	                end
