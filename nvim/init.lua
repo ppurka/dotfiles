@@ -7,7 +7,7 @@ require("mine.functions")       -- custom VIM functions
 
 require("mine.plugins")         -- all plugins included here. Simple plugin configurations
 require("mine.individual")      -- individual plugin configurations
-require("mine.cscope")          -- cscope configuration file
+--require("mine.cscope")          -- cscope configuration file
 
 require("mine.colorscheme")     -- apply colorscheme
 require("mine.gui")             -- settings for GUI

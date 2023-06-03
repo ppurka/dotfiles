@@ -10,7 +10,7 @@ M = function()
             vim.cmd("cd " .. parentdir)
         end
 
-        vim.cmd([[Telescope grep_string theme=dropdown]])
+        vim.cmd([[Telescope grep_string word_match=-w theme=dropdown]])
     end
 end
 
