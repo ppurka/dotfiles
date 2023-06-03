@@ -53,7 +53,7 @@ local bufs      = {"BufReadPost", "BufNewFile"}
 
 -- new lua based autocommands
 aucmd(bufs,                     {pattern="*.ci",                callback = setc})
-aucmd(bufs,                     {pattern={"*.cu","*.cuh"},      callback = setcuda})
+aucmd(bufs,                     {pattern={"*.cu*","*.hiph"},    callback = setcuda})
 aucmd(bufs,                     {pattern="*.fi",                callback = setfor})
 aucmd(bufs,                     {pattern="vMakefile.include*",  callback = setmake})
 aucmd(bufs,                     {pattern="*_mod",               callback = settext})

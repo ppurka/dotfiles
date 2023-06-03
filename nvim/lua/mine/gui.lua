@@ -10,5 +10,5 @@ if vim.g.neovide then
     vim.g.neovide_cursor_animation_length   = 0.01              -- length of cursor animation in sec
     vim.g.neovide_floating_opacity          = 0.65              -- opacity of floating windows
     vim.g.neovide_floating_blur             = true              -- floating windows are blurred
-    myfonts(0)
 end
+myfonts(0)

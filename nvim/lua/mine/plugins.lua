@@ -1,8 +1,11 @@
 -- see internetz for vim-plug and lua
 --
 local Plug = vim.fn['plug#']
-vim.fn['plug#begin']('~/.config/nvim/plugged')
+-- vim.fn['plug#begin']('~/.config/nvim/plugged')
+-- We need this approach to suppress any errors from loading plugins, or missing git.
+vim.cmd([[silent! call plug#begin('~/.config/nvim/plugged')]])
 
+Plug('dhananjaylatkar/cscope_maps.nvim')            -- cscope keymaps
 Plug('iamcco/markdown-preview.nvim', {              -- markdown preview
    ['do'] = function()
        vim.cmd([[mkdp#util#install()]])
@@ -32,6 +35,15 @@ vim.fn['plug#end']()
 ---------------- START auto-pairs-gentle config   ------------------
 vim.g.AutoPairsUseInsertedCount = 1
 ----------------  END  auto-pairs-gentle config   ------------------
+
+---------------- START Cscope            config   ------------------
+require('cscope_maps').setup({
+  disable_maps = false, -- true: load only Cscope
+  cscope = {
+    use_telescope = true,
+  },
+})
+----------------  END  Cscope            config   ------------------
 
 ---------------- START impatient   configuration  ------------------
 require('impatient')

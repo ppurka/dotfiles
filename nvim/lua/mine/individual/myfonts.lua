@@ -24,10 +24,10 @@ local M = function(arg)
         if (not vim.g.is_laptop         or
             vim.g.username_uid == nil   or
             vim.g.username_uid == 0) then
-            gui_font_size = 12                                  -- font for gui windows
+            gui_font_size = 14                                  -- font for gui windows
         else
             vim.g.only_laptop = getglobal("only_laptop")
-            gui_font_size     = (vim.g.only_laptop and 8 or 11) -- small @ laptop
+            gui_font_size     = (vim.g.only_laptop and 14 or 16) -- small @ laptop
         end
         vim.g.custom_font = 0
     elseif arg == -1 then                                       -- decrease font size
