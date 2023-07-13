@@ -4,16 +4,19 @@
 
 " Some GUI parameters
 if exists(":GuiAdaptiveFont")
-    GuiAdaptiveFont 1
+    GuiAdaptiveFont     1
 endif
 if exists(":GuiPopupmenu")
-    GuiPopupmenu    1
+    GuiPopupmenu        1
 endif
 if exists(":GuiScrollBar")
-    GuiScrollBar    1
+    GuiScrollBar        1
 endif
 if exists(":GuiTabline")
-    GuiTabline      1
+    GuiTabline          1
+endif
+if exists(":GuiTablineBuffers")
+    GuiTablineBuffers   0
 endif
 
 " Right Click Context Menu (Copy-Cut-Paste)
