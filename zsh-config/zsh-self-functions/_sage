@@ -1,0 +1,90 @@
+#compdef sage
+
+# by myself
+local local_options
+
+if (( $words[(I)(-h|-?|--help|-advanced|--advanced)] )); then
+    return 0
+fi
+
+local_options=(
+  --M2'[run Sage Macaulay2 with given arguments]'
+  --R'[run Sage R with given arguments]'
+  --advanced'[print advanced help message]'
+  -b'[build Sage library]':'branch name':_files
+  --ba'[same as -b and rebuild all Cython code]':'branch name':_files
+  --ba-force'[same as -ba, but do not query before rebuilding]':'branch name':_files
+  --bdist'[build a binary distribution of Sage]':Version:
+  '(-bn,--build-and-notebook)'{--build-and-notebook,-bn}'[build the Sage library then start the Sage notebook]'
+  -br'[switch to, build, and run Sage given branch]':'branch name':_files
+  -branch'[print the current Sage branch]'
+  -bt'[build and test, options like -t]'
+  -btnew'[build and test modified files, options like -tnew]'
+  -btp+'[build and test parallel, options like -tp below]':number:'(0 1 2 3 4 5 6 7 8 9)'
+  -c'[Evaluates cmd as sage code]':command:
+  --cachegrind'[run Sage using Valgrinds cachegrind tool]'
+  --callgrind'[run Sage using Valgrinds callgrind tool]'
+  --cleaner'[run the Sage cleaner]'
+  --clone'[clone a new branch of the Sage library from the current branch]':'branch name':_files
+  --combinat'[run sage-combinat patch management script]'
+  --coverage'[give info about doctest coverage of files]':files:_files
+  --coverageall'[give summary info about doctest coverage of all files in the Sage library]'
+  --crap'[detect suspicious garbage in sage source tarball]':'sage tarball':'_files -/g sage-*.tar'
+  --cython'[run Cython with given arguments]'
+  --docbuild'[Build the Sage documentation]'
+  --ecl'[run Common Lisp]'
+  --experimental'[list all experimental packages that can be installed]'
+  -f'[shortcut for -i -f: force build of the given Sage packages]':'package name':_files
+  --fixdoctests'[create file.py.out that would pass the doctests and output a patch]':'python file':'_files -/g *.py'
+  --gap'[run Sage Gap with given arguments]'
+  --gdb'[run Sage under the control of gdb]'
+  --gp'[run Sage PARI/GP calculator with given arguments]'
+  --grep'[same as -search_src]':string:
+  --grepdoc'[same as -search_doc]':string:
+  '(--gthread,--qthread,--q4thread,--wthread,--pylab)'{--gthread,--qthread,--q4thread,--pylab,--wthread}'[pass the option through to ipython]'
+  '(-h,-?)'{-?,-h}'[print short help message]'
+  --hg'[run Sage Mercurial with given arguments]'
+  -i'[install the given Sage packages]':'package name':_files
+  --info'[print the SPKG.txt of the given packages]':'package name':_files
+  --inotebook'[start the *insecure* Sage notebook]'
+  --ipython'[run Sage IPython using the default environment]'
+  --kash'[run Sage Kash with given arguments]'
+  --lisp'[run Lisp interpreter included with Sage]'
+  --massif'[run Sage using Valgrind massif tool]'
+  --maxima'[run Sage Maxima with given arguments]'
+  --memcheck'[run Sage using Valgrind memcheck tool]'
+  --min'[do not populate global namespace (must be first option)]'
+  --mwrank'[run Sage mwrank with given arguments]'
+  '(--notebook,-n)'{-n,--notebook}'[start the Sage notebook]'
+  --omega'[run Sage using Valgrind omega tool]'
+  --optional'[list all optional packages that can be installed]'
+  --pkg'[create Sage package dir.spkg from a given directory]':directories:'_files -/'
+  --pkg_nc'[as -pkg, but do not compress the package]':directories:'_files -/'
+  --preparse'[preparse file.sage and produce corresponding file.sage.py]':'sage files':'_files -/g *.sage'
+  --python'[run the Python interpreter]'
+  -q'[quiet; start with no banner]'
+  --root'[print the Sage root directory]'
+  --rst2sws'[Generates Sage worksheet (.sws) from standalone reStructuredText source]'
+  --rst2txt'[Generates Sage worksheet text file from standalone reStructuredText source]'
+  --rsyncdist'[build an rsyncable source distribution of Sage]':Version:
+  --scons'[run Sage scons]'
+  --sdist'[build a source distribution of Sage]':Version:
+  --search_doc'[search through the Sage documentation for string]':string:
+  --search_src'[search through all the Sage library code for string]':string:
+  --sh"[run $SHELL with Sage environment variables]"
+  --singular'[run Sage singular with given arguments]'
+  --sqlite3'[run Sage sqlite3 with given arguments]'
+  --standard'[list all standard packages that can be installed]'
+  --startuptime'[display how long each component of Sage takes to start up]'
+  --sync-build'[delete old code and other files in the Sage library]'
+  -t'[test examples in .py, .pyx, .sage, .tex or .rst files]':'options or files':'( --long --verbose --optional --randorder --new --initial --debug --failed --sagenb --help _files )'
+  --testall'[test all source files, docs, and examples.  options like -t]':'options or files':'( --long --verbose --optional --randorder --new --initial --debug --failed --sagenb --help _files )'
+  -tp+'[like -t above, but tests in parallel using N threads with 0 interpreted as a sensible default]':number:'(0 1 2 3 4 5 6 7 8 9)'
+  --twistd'[run Twisted server]'
+  --upgrade'[download, build and install standard packages from given url]':url:
+  {'(--version)-v','(-v)--version'}'[print the Sage version]'
+  --valgrind'[this is an alias for -memcheck]'
+  :'sage, python, cython files':'_files -/g "*.(sage|pyx|py)"'
+)
+
+_arguments -s $local_options && return 0

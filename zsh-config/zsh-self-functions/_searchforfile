@@ -1,0 +1,25 @@
+#compdef searchforfile
+
+# by myself
+local local_options
+
+if (( $words[(I)(-h|--help)] )); then
+    return 0
+fi
+
+local_options=(
+    {'(-c)--case-sensitive','(--case-sensitive)-c'}'[Case sensitive search]'
+    '--customized-prompt''[Provide customized input prompt]'
+    {'(-D)--directory','(--directory)-D'}'[Search only dir names]'
+    {'(-d)--depth','(--depth)-d'}'[Search upto <num> dir deep using find]'
+    {'(-f -s --slocate)--find','(--find -s --slocate)-f'}'[Search using find]'
+    {'(-F)--from','(--from)-F'}+'[Search for files added on/after <date>]:date:'
+    {'(-h)--help','(--help)-h'}'[Show help text]'
+    {'(-nc)--no-color','(--no-color)-nc'}'[Do not use color in output]'
+    {'(-s -f --find)--slocate','(--slocate -f --find)-s'}'[Search using slocate database from current dir]'
+    {'(-T)--to','(--to)-T'}+'[Search for files added on/before <date>]:date:'
+)
+
+_arguments -s \
+    $local_options \
+    && return 0

@@ -1,0 +1,18 @@
+#compdef playpause
+
+# by myself
+local local_options local_arg
+
+if (( $words[(I)(-h|--help)] )); then
+    return 0
+fi
+
+local_options=(
+    {'(-h)--help','(--help)-h'}'[Show help text]'
+    {'(-nc)--no-color','(--no-color)-nc'}'[Do not use color in output]'
+    ':commands:(next pause play playpause prev stop)'
+)
+
+_arguments -s \
+    $local_options \
+    && return 0

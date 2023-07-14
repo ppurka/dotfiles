@@ -1,0 +1,24 @@
+#compdef e_emerge
+
+# by myself
+local local_options
+
+if (( $words[(I)(-h|--help)] )); then
+    return 0
+fi
+
+local_options=(
+    {'(-b -c -d -f -k -r -R -o -s --unmerge --debug --force --oldpkg --resume --revision --offline --skipfirst)--backup','(-c -d -f -k -r -R -o -s --backup --unmerge --debug --force --oldpkg --resume --revision --offline --skipfirst)-b'}'[Backup current installation]'
+    {'(-b -c -d -f -k -r -R -o -s --backup --debug --force --oldpkg --resume --revision --offline --skipfirst)--unmerge','(-b -d -f -k -r -R -o -s --backup --unmerge --debug --force --oldpkg --resume --revision --offline --skipfirst)-c'}'[Unmerge current installation]'
+    {'(-b -c -d -k --backup --unmerge --oldpkg)--debug','(-b -c -k --backup --unmerge --debug --oldpkg)-d'}'[Compile with debug info]'
+    {'(-b -c -f -k --backup --unmerge --oldpkg)--force','(-b -c -k --backup --unmerge --force --oldpkg)-f'}'[Force compile of all packages]'
+    {'(-h)--help','(--help)-h'}'[Show help text]'
+    {'(-b -c -d -f -k -r -R -o -s --backup --debug --force --unmerge --resume --revision --offline --skipfirst)--oldpkg','(-b -d -f -c -r -R -o -s --backup --unmerge --debug --force --oldpkg --resume --revision --offline --skipfirst)-k'}'[Install backed up binary packages]'
+    {'(-p)--package','(--package)-p'}'[Install extra packages. Use before -b -c -f -k]'
+    {'(-b -c -r -k --backup --unmerge --oldpkg)--resume','(-b -c -k --backup --unmerge --resume --oldpkg)-r'}'[Resume compilation]'
+    {'(-b -c -R -k --backup --unmerge --oldpkg)--revision','(-b -c -k --backup --unmerge --revision --oldpkg)-R'}'[Checkout specific svn revision]'
+    {'(-b -c -R -k -o --backup --unmerge --oldpkg --revision)--offline','(-b -c -k --backup --unmerge --revision --oldpkg --offline)-o'}'[Offline mode]'
+    {'(-b -c -s -k --backup --unmerge --oldpkg)--skipfirst','(-b -c -k --backup --unmerge --skipfirst --oldpkg)-s'}'[Skip first package on resume]'
+)
+
+_arguments -s $local_options && return 0

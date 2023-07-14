@@ -1,0 +1,23 @@
+#compdef run_mathematica
+
+# by myself
+local local_options
+
+if (( $words[(I)(-h|--help)] )); then
+    return 0
+fi
+
+local_options=(
+    {'(-f)--force-unmount','(--force-unmount)-f'}'[Forcefully unmount already mounted filesystem(s)]'
+    {'(-h)--help','(--help)-h'}'[Show help text]'
+    {'(-m)--math','(--math)-m'}'[Use the terminal based mathematica (math)]'
+    {'(-nc)--no-color','(--no-color)-nc'}'[Do not use color in output]'
+    {'(-s)--setup','(--setup)-s'}'[(re)Set some variables used in the script]'
+    {'(-u)--unmount','(--unmount)-u'}'[Unmount already mounted filesystem(s)]'
+    {'(-v)--version','(--version)-v'}'[The mathematica version to run]'
+    {'(-o)--host','(--host)-o'}+'[Specify a remote host]:host:_hosts'
+)
+
+_arguments -s \
+    $local_options \
+    && return 0

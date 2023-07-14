@@ -1,0 +1,53 @@
+#compdef update
+
+# by myself
+local local_options
+
+if (( $words[(I)(--help|--version)] )); then
+    return 0
+elif [[ $words[-1] == -h ]]; then
+    _arguments -s -S \
+        '( --help )-h[Show help text]:help options:( config error )' \
+        && return 0
+fi
+
+local_options=(
+    '-1[emerge --oneshot]'
+	'-A[GLSA check -- after update]'
+	'-C[depclean   -- after GLSA !experimental]'
+	'-E[edit go straight to listEdit mode]'
+	'-F[fetch only quit after fetching]'
+	'-M[maintenance -- run GLSA, depclean, revdep]'
+	'-R[revdep-rebuild -- after update/ install]'
+	'-S[sync only sync tree and quit]'
+	'-W[rebuild kernel modules (uses module-rebuild)]'
+	'-X[force toolchain downgrade]'
+	'-Y[rebuild kernel deps like hal (config)]'
+	'-a[ask before installing]'
+	'-c[disable colour]'
+	'-f[fetch files first (no parallel-fetch)]'
+    '( --help )-h[Show help text]:help options:( config error )'
+    '( -h )--help[Explanation of update]'
+	'-i[install target/s to world]'
+	'-l[log via syslog]'
+	'-m[use tmp-fs for build]'
+	'-r[resume (after -p|a, ctrl-c, or halt)]'
+	'-s[sync first (does eix if installed)]'
+    '(-v)-q[Show less compile output]'
+    '(-q)-v[Show more compile output]'
+    '--version[Show version number of update]'
+	'-x[server/ automated : implies -lfc, no spinner]'
+	'-z[skip checks -- with emerge -p output:]'
+)
+
+if compset -P '(\\|)(>=|<=|<|>|=)'; then
+    _arguments -s \
+        $local_options \
+        '*:portage:_gentoo_packages available_versions' \
+        && return 0
+else
+    _arguments -s \
+        $local_options \
+        '*:portage:_gentoo_packages available' \
+        && return 0
+fi

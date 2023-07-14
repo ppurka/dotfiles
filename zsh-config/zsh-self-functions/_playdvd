@@ -1,0 +1,30 @@
+#compdef playdvd
+
+# by myself
+local local_options
+
+if (( $words[(I)(-h|--help)] )); then
+    return 0
+fi
+
+local_options=(
+    {'(-a)--alsa','(--alsa)-a'}'[Use ALSA audio driver]'
+    '-c+[Chapter]:chapter number:'
+    {'(-d)--dvdnav','(--dvdnav)-d'}'[Use dvdnav:// with *mplayer]'
+    '--force-sub[Force use of subtitles]'
+    {'(-h)--help','(--help)-h'}'[Show help text]'
+    {'(-m)--mplayer','(--mplayer)-m'}'[Use mplayer for playback]'
+    {'(-nc)--no-color','(--no-color)-nc'}'[Do not use color in output]'
+    {'(-o)--oss','(--oss)-o'}'[Use OSS audio driver]'
+    {'(-s)--stereo','(--stereo)-s'}'[Use stereo sound setting]'
+    '-sub[Use subtitles from file]:subtitle files:_files -/g "*"'
+    '-t+[Title of dvd]:title number:'
+    '-u[Unmount the dvd using pumount]'
+    {'(-)--','(--)-'}vdpau'[Use vdpau video output]'
+    {'(-x)--xine','(--xine)-x'}'[Use xine for playback]'
+    {'(-)--','(--)-'}xvmc'[Use xvmc video output]'
+)
+
+_arguments -s \
+    $local_options \
+    && return 0

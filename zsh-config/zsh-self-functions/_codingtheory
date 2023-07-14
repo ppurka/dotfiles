@@ -1,0 +1,37 @@
+#compdef codingtheory
+
+# by myself
+local local_options
+
+if (( $words[(I)(-h|--help)] )); then
+    _arguments -s \
+        '(--help)-h[Show help text]:help options:( date )' \
+        '(-h)--help[Show help text]:help options:( date )' \
+        && return 0
+elif (( $words[(I)(-o|--open)] )); then
+    _files -g \* -W "$HOME/CodingTheory/ALLPapers" && return 0
+fi
+
+local_options=(
+    {'(-a)--all','(--all)-a'}'[Check all subdirectories]'
+    {'(-b)--book','(--book)-b'}'[Check if pdf is a book]'
+    {'(-c)--clean','(--clean)-c'}'[Remove stale symlinks]'
+    {'(-d)--display','(--display)-d'}'[Use GUI for subject dir]'
+    {'(-f)--from','(--from)-f'}'[Check files added on/after <date>]'
+    {'(-h)--help','(--help)-h'}'[Show help text]'
+    {'(-nc)--no-color','(--no-color)-nc'}'[Do not use color in output]'
+    {'(-ns)--no-subject','(--no-subject)-ns'}'[Do not link files to subject directory]'
+    {'(-o)--open','(--open)-o'}'[Open file <file>]'
+    {'(-p)--pretend','(--pretend)-p'}'[Simulate the steps that will be performed]'
+    {'(-sa -sb -sn -ss -sy -s)--show','(-sa -sb -sn -ss -sy --show)-s'}'[Show files added since <date>]'
+    '(--show -s -sb -sn -ss -sy)-sa[Search by author name]'
+    '(--show -s -sa -sn -ss -sy)-sb[Search by book name]'
+    '(--show -s -sa -sb -ss -sy)-sn[Search the notes dir]'
+    '(--show -s -sa -sb -sn -sy)-ss[Search by subject]'
+    '(--show -s -sa -sb -sn -ss)-sy[Search by year]'
+    {'(-t)--to','(--to)-t'}'[Check files added on/before <date>]'
+)
+
+_arguments -s \
+    $local_options \
+    && return 0

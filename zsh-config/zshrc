@@ -1,0 +1,314 @@
+### ZSH config file
+
+# Usage: __setpath__
+# Basic function needed by both interactive and non-interactive terminals
+# It sets path according to a specific order and keeps only unique paths
+__setpath__() {
+    # first get all unique paths
+    export path=( $( echo "$PATH" | \tr ':' '\n' | \awk '!a[$0]++' ) )
+
+    # next order them
+    # 1st current dir
+    # 2nd paths containing home dir
+    # 3rd paths containing /usr/local dir
+    # 4th rest
+    export path=(   .  \
+                    $( echo "$PATH" | \tr ':' '\n' | \grep '^~/' )          \
+                    $( echo "$PATH" | \tr ':' '\n' | \grep "^$HOME/" )      \
+                    $( echo "$PATH" | \tr ':' '\n' | \grep '^/usr/local/' ) \
+                    "${path[@]}"
+                )
+
+    # now, we keep the first unique path
+    export path=( $( echo "$PATH" | \tr ':' '\n' | \awk '!a[$0]++' ) )
+}
+
+# Load zprofile - do it at very beginning
+#   * Set up caches in temporary directory.
+#   * touch in firefox, editor, etc
+[[ -f /etc/zsh/zprofile ]] && . /etc/zsh/zprofile
+
+#------              Python Specifics       ------------#
+if [[ -d $HOME/Documents/Installations/python3 ]]; then
+    export PYTHONUSERBASE=$HOME/Documents/Installations/python3
+    export PATH="${PATH}:${PYTHONUSERBASE}/bin"
+fi
+#------          End Python Specifics       ------------#
+
+#------              Rust   Specifics       ------------#
+if [[ -d $HOME/Documents/Installations/cargo    && \
+      -d $HOME/Documents/Installations/rustup   ]]; then
+    export CARGO_HOME=$HOME/Documents/Installations/cargo
+    export RUSTUP_HOME=$HOME/Documents/Installations/rustup
+    export PATH=$HOME/Documents/Installations/cargo/bin:$PATH
+fi
+#------          End Rust   Specifics       ------------#
+
+[[ -d ~/.local/bin          ]] && export PATH="${PATH}:~/.local/bin"
+[[ -d ~/.config/myAutoStart ]] && export PATH="${PATH}:~/.config/myAutoStart"
+
+if [[ $- != *i* ]]; then
+    # It is a non-interactive shell, so only (re)set the PATH and return
+    __setpath__
+    return
+fi
+
+#••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••#
+#                                                                        #
+#-----------------      Below is enabled only for TTY      --------------#
+#                                                                        #
+#••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••#
+
+#------                  Functions          ------------#
+#
+# Typically we need only branch name and brief status.
+# This command needs to be very fast.
+# Use `git status` on command line if you want full status
+function __check_git__() {
+    local _s="$( git status --untracked-files=no --ignore-submodules=all 2>&1 )"
+    [[ "${_s}" = "fatal:"* ]] && echo "" && return
+    _s="$( echo "${_s}" | sed -e '/^#.*modified:.*(untracked content)$/d' )"
+    local _g_s="$( echo "$_s" | sed -n -e '1s@^.*On branch @@p;q' )"
+
+    if [[   "$_s" = *modified:*                 || \
+            "$_s" = *"new file:"*               || \
+            "$_s" = *"Your branch is behind"*   || \
+            "$_s" = *deleted:*                  || \
+            "$_s" = *renamed:*                     \
+         ]]; then
+        echo "[%20>...>%{$fg[red]%}$_g_s%{$fg[white]%}%>>]"
+    elif [[ -n "$_g_s" ]]; then
+        echo "[%20>...>%{$fg[green]%}$_g_s%{$fg[white]%}%>>]"
+    else
+        echo "%{$fg[yellow]%}[?]%{$fg[white]%}"
+    fi
+}
+
+# Enable automatic rehash of commands
+__force_rehash__() {
+  (( CURRENT == 1 )) && rehash
+  return 1	# Because we didn't really complete anything
+}
+
+# Report battery information on linux tty when we do not have GUI
+function __get_battery__() {
+    if [[ $TERM == "linux"                              && \
+          -e /sys/class/power_supply/BAT0/energy_now    && \
+          -e /sys/class/power_supply/BAT0/energy_full   && \
+          -e /sys/class/power_supply/BAT0/status   ]]; then
+        if [[ "$(< /sys/class/power_supply/BAT0/status)" == "Discharging" ]]; then
+            local -i charge=$(( $(< /sys/class/power_supply/BAT0/energy_now) * 100 / \
+                                $(< /sys/class/power_supply/BAT0/energy_full) ))
+            if [[ $charge -lt 30 ]]; then
+                echo " %{$fg_bold[red]%}[$charge%%]%{$reset_color%}"
+            elif [[ $charge -lt 60 ]]; then
+                echo " %{$fg_bold[magenta]%}[$charge%%]%{$reset_color%}"
+            elif [[ $charge -lt 80 ]]; then
+                echo " %{$fg_bold[cyan]%}[$charge%%]%{$reset_color%}"
+            else
+                echo " %{$fg_bold[green]%}[$charge%%]%{$reset_color%}"
+            fi
+        fi
+    fi
+}
+
+
+# pip zsh completion
+function __pip_completion__() {
+  local words cword
+  read -Ac words
+  read -cn cword
+  reply=( $( COMP_WORDS="$words[*]" \
+             COMP_CWORD=$(( cword-1 )) \
+             PIP_AUTO_COMPLETE=1 $words[1] 2>/dev/null ))
+}
+
+# Superseded this __supress__ function with redirect everything to null
+function __suppress__() {
+    eval "$1() { $(which $1) \"\$@\" >& /dev/null; }"
+}
+
+
+# Set the window title -- but only for X-terminals: temporarily use TERM
+precmd () {
+    RPROMPT=""
+    # The RPROMPT is deliberately different to distinguish root from user
+    if [[ $UID == 0 ]]; then
+        RPROMPT+="%{$fg[red]%}░▒▓$(__check_git__)"
+        RPROMPT+="%{$bg[red]%}%{$fg_bold[white]%}%n%{$fg[white]%}|"
+    else
+        RPROMPT+="%{$fg[white]%}•$(__check_git__)"
+        RPROMPT+="%{$fg[cyan]%}%n%{$fg[white]%}|"
+    fi
+    RPROMPT+="%{$fg[green]%}%m"
+    if [[ $TERM != "linux" ]]; then
+        print -Pn "\e]2;%30<...<%~: [%T] %m\a"
+    else
+        RPROMPT+="%{$fg[yellow]%}[%D{%T}]"
+    fi
+    RPROMPT+="%{$reset_color%}"
+    export RPROMPT
+}
+#
+#------           END    Functions          ------------#
+
+
+#------                 Autocomplete        ------------#
+#
+# Added by myself -- needed to autocomplete own shell scripts
+if [[ $UID == 0 ]]; then
+    fpath=( $HOME/.config/zsh-self-functions $fpath )
+else
+    fpath=( $HOME/Documents/common/dotfiles/zsh-self-functions $fpath )
+fi
+
+# Autoload colors, needed for >=zsh-4.2.9
+autoload colors zsh/terminfo
+[[ "$terminfo[colors]" -ge 8 ]] && colors
+
+# ZSH completion >>>>>
+zstyle ':completion:*' completer _oldlist _expand __force_rehash__ _complete
+
+autoload -U compinit promptinit
+compinit -u
+promptinit
+zstyle ':completion::complete:*'        use-cache on
+zstyle ':completion:*'                  cache-path ~/.cache/zsh_cache
+zstyle ':completion:*:processes-names'  command 'ps xho comm'
+zstyle ':completion:*:processes'        command 'ps xho pid,time,comm'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+# The following lines are taken from zshwiki.org
+zstyle ':completion:*:approximate:*'    max-errors 'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) )'
+zstyle ':completion:*:descriptions'     format "- %d -"
+zstyle ':completion:*:corrections'      format "- %d - (errors %e})"
+zstyle ':completion:*:default'          list-prompt '%S%M matches%s'
+zstyle ':completion:*'                  group-name ''
+zstyle ':completion:*:manuals'          separate-sections true
+zstyle ':completion:*'                  menu select
+zstyle ':completion:*'                  verbose yes
+# Colors in tab completion
+zstyle ':completion:*:default'          list-colors ${(s.:.)LS_COLORS}
+
+compctl -K __pip_completion__ python3 -m pip    # Completion of pip args
+compdef _gnu_generic pdfcrop                    # Completion of pdfcrop args
+compdef quietemerge=emerge                      # Completion of quietemerge
+#
+#------           END   Autocomplete        ------------#
+
+#------                  Settings           ------------#
+#
+autoload -U zmv                 # Autoload zmv for mass file renaming
+setopt autocd                   # Auto cd into directories
+setopt correct                  # Auto correct commands
+#setopt correctall              # Auto correct all arguments
+setopt hist_expire_dups_first   # Remove duplicate history entries first
+setopt histignorespace          # Do not save commands starting with ' '
+setopt transientrprompt         # RPROMPT appears only on current line
+setopt promptsubst              # Enable $( ) substitution in prompts
+#
+#------        END       Settings           ------------#
+
+#------                  Aliases            ------------#
+# Aliases >>>>>
+alias c="clear"
+alias cp="cp -i"
+alias crontab="/usr/bin/env EDITOR=nvim /usr/bin/crontab"
+alias d="ls --color"
+alias eb="equery b -e"
+alias edep="equery depends"
+alias ew="equery which"
+alias ez="exec zsh"
+alias grep="grep --color"
+alias l="ls --color -sFhv"
+alias ll="ls --color -lhv"
+alias mcp="noglob zmv -WvC"
+alias mmv="noglob zmv -Wv"
+alias mv="mv -i"
+alias p="cd -"
+alias psg="ps aux | grep -i -- "
+alias pine="alpine"
+alias ping="ping -c3"
+alias qe="quietemerge"
+alias rm="rm -I"
+alias s="cd .."
+alias ta="tig --all"
+alias tailf="tail -f"
+alias vim=nvim
+[[ $UID == 0 ]] && alias quickpkg="quickpkg --include-config=y"
+
+__suppress__ dolphin
+__suppress__ meld
+__suppress__ rox
+__suppress__ thunderbird-bin
+#
+#------            END   Aliases            ------------#
+
+#------           Environment Settings      ------------#
+#
+# Environment settings for Root account
+if [[ $UID == 0 ]]; then
+    set -A QEMERGE  "--jobs=2" "--load-average=5" "--keep-going" \
+                    "--autounmask-write" "--exclude=sys-kernel/gentoo-sources"
+    export QEMERGE
+    [[ -d ~/binaries    ]] && export PATH=~/binaries:$PATH
+    [[ -z "$BROWSER"    ]] && export BROWSER=firox   # set to custom browser/filemanager/etc
+    [[ $TERM != screen  ]] && export TMOUT=7200      # exit root shell after 2h
+fi
+
+# General Environment Settings >>>>>
+PROMPT=""
+PROMPT+="%{$fg_bold[yellow]%}%30<...<%~%(?.. %{$fg_bold[red]%}[%?]%{$reset_color%} )"
+PROMPT+="$(__get_battery__)"
+PROMPT+="%{$fg_bold[white]%} »%{$reset_color%} "
+export HISTFILE=$HOME/.bash_history
+export HISTSIZE=500
+export PROMPT
+export PS2="%{$fg_bold[green]%}%_...%{$reset_color%} "
+export SAVEHIST=500
+#
+#------       END Environment Settings      ------------#
+
+#------             Keyboard  Settings      ------------#
+#
+autoload zkbd
+typeset -A key
+key[Home]=${terminfo[khome]}
+key[End]=${terminfo[kend]}
+key[Insert]=${terminfo[kich1]}
+key[Delete]=${terminfo[kdch1]}
+key[Up]=${terminfo[kcuu1]}
+key[Down]=${terminfo[kcud1]}
+key[Left]=${terminfo[kcub1]}
+key[Right]=${terminfo[kcuf1]}
+key[PageUp]=${terminfo[kpp]}
+key[PageDown]=${terminfo[knp]}
+
+bindkey -v                  # vi-keybindings
+bindkey "^R"                history-incremental-search-backward
+bindkey "^S"                history-incremental-search-forward
+bindkey "^A"                beginning-of-line
+bindkey "^E"                end-of-line
+bindkey "^F"                end-of-line
+bindkey "${key[Home]}"      beginning-of-line
+bindkey "${key[End]}"       end-of-line
+bindkey "${key[Delete]}"    delete-char
+bindkey "${key[Insert]}"    overwrite-mode
+bindkey "${key[PageUp]}"    history-beginning-search-backward
+bindkey "${key[PageDown]}"  history-beginning-search-forward
+bindkey "^i"                expand-or-complete-prefix
+if [[ $TERM == xterm* ]]; then
+    bindkey "^[[H"          beginning-of-line
+    bindkey "^[[F"          end-of-line
+fi
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+bindkey '^X' history-beginning-search-menu
+#
+#------       END   Keyboard  Settings      ------------#
+
+# Source some secrets only when needed
+[[ -f ~/.config/myAutoStart/zshrc_secrets ]] &&
+    source ~/.config/myAutoStart/zshrc_secrets
+
+__setpath__     # put all paths in order
+:               # exit with 0 status

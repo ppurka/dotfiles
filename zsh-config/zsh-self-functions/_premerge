@@ -1,0 +1,30 @@
+#compdef premerge
+
+# by myself
+local local_options
+
+if (( $words[(I)(-h|--help)] )); then
+    return 0
+fi
+
+local_options=(
+    {'(-h)--help','(--help)-h'}'[Show help text]'
+    {'(-u)--unstable','(--unstable)-u'}'[Enable ~ARCH]'
+    {'(-e)--emerge','(--emerge)-e'}'[Emerge the package]'
+    '-f[Include unstable versions of all dependencies with -e]'
+    {'(-nc)--no-color','(--no-color)-nc'}'[Do not use color in output]'
+    '-+[Use flag]:Use flags:_gentoo_packages useflag'
+    '++[Use flag]:Use flags:_gentoo_packages useflag'
+)
+
+if compset -P '(\\|)(>=|<=|<|>|=)'; then
+    _arguments -s \
+        $local_options \
+        '*:portage:_gentoo_packages available_versions' \
+        && return 0
+else
+    _arguments -s \
+        $local_options \
+        '*:portage:_gentoo_packages available' \
+        && return 0
+fi
