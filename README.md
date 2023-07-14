@@ -24,3 +24,7 @@ My configurations for neovim (at least version 0.7), neovide, neovim-qt files.
   * custom Lua functions for coc.nvim
   * custom Lua based settings for cscope
   * custom setting for checking whether we are running in a terminal
+
+## zsh-config
+
+Zsh configuration files. Most of them are more than a decade old.
