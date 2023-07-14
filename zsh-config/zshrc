@@ -76,11 +76,11 @@ function __check_git__() {
             "$_s" = *deleted:*                  || \
             "$_s" = *renamed:*                     \
          ]]; then
-        echo "[%20>...>%{$fg[red]%}$_g_s%{$fg[white]%}%>>]"
+        echo "%{$reset_color%}[%20>...>%{$fg[red]%}$_g_s%{$reset_color%}%>>]"
     elif [[ -n "$_g_s" ]]; then
-        echo "[%20>...>%{$fg[green]%}$_g_s%{$fg[white]%}%>>]"
+        echo "%{$reset_color%}[%20>...>%{$fg[green]%}$_g_s%{$reset_color%}%>>]"
     else
-        echo "%{$fg[yellow]%}[?]%{$fg[white]%}"
+        echo "%{$fg[yellow]%}[?]%{$reset_color%}"
     fi
 }
 
@@ -149,6 +149,13 @@ precmd () {
     RPROMPT+="%{$reset_color%}"
     export RPROMPT
 }
+
+# Set current directory and parent directory
+preexec() {
+    export CWD="${PWD##*/}"
+    export PCWD="${${PWD%/*}##*/}"
+}
+
 #
 #------           END    Functions          ------------#
 
@@ -271,6 +278,9 @@ export SAVEHIST=500
 #------             Keyboard  Settings      ------------#
 #
 autoload zkbd
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+
 typeset -A key
 key[Home]=${terminfo[khome]}
 key[End]=${terminfo[kend]}
@@ -284,25 +294,23 @@ key[PageUp]=${terminfo[kpp]}
 key[PageDown]=${terminfo[knp]}
 
 bindkey -v                  # vi-keybindings
-bindkey "^R"                history-incremental-search-backward
-bindkey "^S"                history-incremental-search-forward
 bindkey "^A"                beginning-of-line
 bindkey "^E"                end-of-line
 bindkey "^F"                end-of-line
+bindkey "^R"                history-incremental-search-backward
+bindkey "^S"                history-incremental-search-forward
+bindkey '^X'                history-beginning-search-menu
+bindkey "^i"                expand-or-complete-prefix
 bindkey "${key[Home]}"      beginning-of-line
 bindkey "${key[End]}"       end-of-line
 bindkey "${key[Delete]}"    delete-char
 bindkey "${key[Insert]}"    overwrite-mode
 bindkey "${key[PageUp]}"    history-beginning-search-backward
 bindkey "${key[PageDown]}"  history-beginning-search-forward
-bindkey "^i"                expand-or-complete-prefix
 if [[ $TERM == xterm* ]]; then
     bindkey "^[[H"          beginning-of-line
     bindkey "^[[F"          end-of-line
 fi
-autoload -Uz history-beginning-search-menu
-zle -N history-beginning-search-menu
-bindkey '^X' history-beginning-search-menu
 #
 #------       END   Keyboard  Settings      ------------#
 
