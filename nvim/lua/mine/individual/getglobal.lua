@@ -5,6 +5,7 @@
 -- 3. "only_laptop" - (boolean) are we running only on laptop (not on external display)
 -- 4. "is_term"     - (boolean) are we running in terminal
 -- 5. "username_uid"- (int    ) get the current user's UID
+-- 6. "have_git"    - (boolean) whether git is available
 local M = {}
 
 -- use function instead of os.execute. neovide tends to hang on os.execute
@@ -61,6 +62,10 @@ M = function(arg)
             uid = tonumber(exec("echo $UID"))   -- os.getenv("UID") returns nil
         end
         return uid
+
+    elseif (arg == "have_git") then
+        local havegit = vim.fn.executable("git") == 1
+        return havegit
 
     end
 end

@@ -5,6 +5,7 @@ local islpt     = getglobal("is_laptop")
 local isterm    = getglobal("is_term")
 local onlylptp  = getglobal("only_laptop")
 local uid       = getglobal("username_uid")
+local have_git  = getglobal("have_git")
 
 -- Settings set via "set" in vimscript
 local home      = os.getenv("HOME")
@@ -79,6 +80,7 @@ vim.g.is_term               = isterm                        -- save whether we a
 vim.g.night_time            = not day                       -- check if it is night time
 vim.g.only_laptop           = onlylptp                      -- true if only one display (laptop) is connected.
 vim.g.username_uid          = uid                           -- save uid  as a global variable
+vim.g.have_git              = have_git                      -- save whether the git executable is available
 
 if islpt then
     vim.g.node_host_prog    = home .. "/Documents/Installations/nodejs/node_modules/.bin/neovim-node-host"

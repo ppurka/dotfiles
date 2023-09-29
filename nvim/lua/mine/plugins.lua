@@ -50,9 +50,16 @@ require('impatient')
 ---------------- END   impatient   configuration  ------------------
 
 ---------------- START lualine     configuration  ------------------
-require('lualine').setup({
-   options = { theme = 'gruvbox', icons_enabled = true }
-   })
+if vim.g.have_git then
+    require('lualine').setup({
+       options = { theme = 'gruvbox', icons_enabled = true }
+       })
+else
+    require('lualine').setup({
+       options  = { theme = 'gruvbox', icons_enabled = true },
+       sections = { lualine_b = {'diagnostics'} }
+       })
+end
 ---------------- END   lualine     configuration  ------------------
 
 ---------------- START indent-bl.. configuration  ------------------
