@@ -25,6 +25,10 @@ M = function(arg)
         else
             -- this should be done only once (1 => local laptop/desktop)
             islpt = tonumber(exec("hostname -d | grep -c localdomain")) == 1
+            if not islpt then   -- try again using single monitor resolution
+                islpt = (tonumber(exec("xrandr |& grep -csw connected")) == 1) and
+                        (tonumber(exec("xrandr |& grep -cs 'connected.*1920x10'")) == 1)
+            end
         end
     end
 
