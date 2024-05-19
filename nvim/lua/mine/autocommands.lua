@@ -63,4 +63,4 @@ aucmd("FileType",               {pattern="make",                callback = set8}
 aucmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"},
                                 {pattern = "*",                 command  = "checktime"})
 aucmd("FocusGained",            {pattern = "*",                 callback = setbg})
-aucmd("VimEnter",               {pattern = "*",                 command  = "IndentBlanklineToggle!"})
+aucmd("VimEnter",               {pattern = "*",                 command  = "IBLDisable"})

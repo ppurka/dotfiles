@@ -63,11 +63,12 @@ end
 ---------------- END   lualine     configuration  ------------------
 
 ---------------- START indent-bl.. configuration  ------------------
-require('indent_blankline').setup({
+require('ibl').setup({
     --show_current_context = true,
     --show_current_context_start = true,
-    use_treesitter = true,
-    use_treesitter_scope = true,
+    -- use_treesitter = true,           -- ibl v2
+    -- use_treesitter_scope = true,     -- ibl v2
+    scope = { enabled = true },
    })
 ---------------- END   indent-bl.. configuration  ------------------
 
