@@ -61,14 +61,27 @@ fi
 
 #------                  Functions          ------------#
 #
+#
+# Check for existence of core.* files
+# Usage: __check_core__
+function __check_core__() {
+    set +o nomatch
+    ls core.* >& /dev/null && echo "%{$bg_bold[red]%}core%{$reset_color%} "
+    set -o nomatch
+}
+
 # Typically we need only branch name and brief status.
 # This command needs to be very fast.
 # Use `git status` on command line if you want full status
 function __check_git__() {
+    if ! which git >& /dev/null; then
+        echo "" && return
+    fi
+
     local _s="$( git status --untracked-files=no --ignore-submodules=all 2>&1 )"
     [[ "${_s}" = "fatal:"* ]] && echo "" && return
-    _s="$( echo "${_s}" | sed -e '/^#.*modified:.*(untracked content)$/d' )"
-    local _g_s="$( echo "$_s" | sed -n -e '1s@^.*On branch @@p;q' )"
+    _s="$( sed -e '/^#.*modified:.*(untracked content)$/d' <<< "${_s}" )"
+    local _g_s="$( sed -n -e '1s@^.*On branch @@p;q' <<< "${_s}" )"
 
     if [[   "$_s" = *modified:*                 || \
             "$_s" = *"new file:"*               || \
@@ -80,7 +93,10 @@ function __check_git__() {
     elif [[ -n "$_g_s" ]]; then
         echo "%{$reset_color%}[%20>...>%{$fg[green]%}$_g_s%{$reset_color%}%>>]"
     else
-        echo "%{$fg[yellow]%}[?]%{$reset_color%}"
+        _g_s="$( awk '/HEAD detached at/{ print $NF }' <<< "${_s}" )"
+        [[ "${_g_s}" ]] &&
+            echo "%{$fg_bold[yellow]%}[${_g_s}]%{$reset_color%}" ||
+            echo "%{$fg_bold[yellow]%}[?]%{$reset_color%}"
     fi
 }
 
@@ -132,6 +148,7 @@ function __suppress__() {
 # Set the window title -- but only for X-terminals: temporarily use TERM
 precmd () {
     RPROMPT=""
+    RPROMPT+="$(__check_core__)"                                        # core (optional)
     # The RPROMPT is deliberately different to distinguish root from user
     if [[ $UID == 0 ]]; then
         RPROMPT+="%{$fg[red]%}░▒▓$(__check_git__)"
@@ -198,6 +215,7 @@ zstyle ':completion:*:default'          list-colors ${(s.:.)LS_COLORS}
 
 compctl -K __pip_completion__ python3 -m pip    # Completion of pip args
 compdef _gnu_generic pdfcrop                    # Completion of pdfcrop args
+compdef nvim-qt=gvim                            # Completion of nvim-qt
 compdef quietemerge=emerge                      # Completion of quietemerge
 #
 #------           END   Autocomplete        ------------#
@@ -278,8 +296,12 @@ export SAVEHIST=500
 #------             Keyboard  Settings      ------------#
 #
 autoload zkbd
+autoload up-line-or-beginning-search
+autoload down-line-or-beginning-search
 autoload -Uz history-beginning-search-menu
 zle -N history-beginning-search-menu
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
 
 typeset -A key
 key[Home]=${terminfo[khome]}
