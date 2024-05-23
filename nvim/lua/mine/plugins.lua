@@ -52,13 +52,23 @@ require('impatient')
 ---------------- START lualine     configuration  ------------------
 if vim.g.have_git then
     require('lualine').setup({
-       options = { theme = 'gruvbox', icons_enabled = true }
-       })
+       options = {
+            theme = 'gruvbox',
+            icons_enabled = true,
+            section_separators = { left = '', right = '' },
+            component_separators = { left = '', right = '' },
+        }
+    })
 else
     require('lualine').setup({
-       options  = { theme = 'gruvbox', icons_enabled = true },
+       options  = {
+            theme = 'gruvbox',
+            icons_enabled = true,
+            section_separators = { left = '', right = '' },
+            component_separators = { left = '', right = '' },
+        },
        sections = { lualine_b = {'diagnostics'} }
-       })
+    })
 end
 ---------------- END   lualine     configuration  ------------------
 
