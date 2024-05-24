@@ -16,6 +16,9 @@ endif
 if exists(":GuiTablineBuffers")
     GuiTablineBuffers   0
 endif
+if exists(":GuiRenderLigatures")
+    GuiRenderLigatures  1
+endif
 
 " Right Click Context Menu (Copy-Cut-Paste)
 nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
