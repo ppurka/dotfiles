@@ -1,5 +1,5 @@
 " Some GUI parameters for nvim-qt
-if (g:neovide != v:true)
+if !exists("g:neovide")
 
 if exists(":GuiAdaptiveFont")
     GuiAdaptiveFont     1
