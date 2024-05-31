@@ -57,6 +57,7 @@ aucmd(bufs,                     {pattern={"*.cu*","*.hiph"},    callback = setcu
 aucmd(bufs,                     {pattern="*.fi",                callback = setfor})
 aucmd(bufs,                     {pattern="vMakefile.include*",  callback = setmake})
 aucmd(bufs,                     {pattern="*_mod",               callback = settext})
+aucmd(bufs,                     {pattern="*.md",                command  = "set conceallevel=2"})
 aucmd("BufReadPre",             {pattern="*.js",                callback = setjs})
 aucmd("FileChangedShellPost",   {pattern = "*",                 callback = printwarn})
 aucmd("FileType",               {pattern="make",                callback = set8})
