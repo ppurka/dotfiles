@@ -6,6 +6,8 @@
 -- 4. "is_term"     - (boolean) are we running in terminal
 -- 5. "username_uid"- (int    ) get the current user's UID
 -- 6. "have_git"    - (boolean) whether git is available
+-- 7. "python3"     - (string ) try to use env; get python3 path; call after determining is_laptop
+-- 8. "node"        - (string ) try to use env; get nodejs path; call after determining is_laptop
 local M = {}
 
 -- use function instead of os.execute. neovide tends to hang on os.execute
@@ -70,6 +72,30 @@ M = function(arg)
     elseif (arg == "have_git") then
         local havegit = vim.fn.executable("git") == 1
         return havegit
+
+    elseif (arg == "python3") then
+        local py3 = exec("which python3")
+        if (py3 == nil) then
+            if vim.g.is_laptop then
+                py3 = "/usr/bin/python3"
+            else
+                local home = os.getenv("HOME")
+                py3 = home .. '/Installations/python3.6.db9/bin/python3'
+            end
+        end
+        return string.gsub(py3, "\n", "")
+
+    elseif (arg == "node") then
+        local nd = exec("which neovim-node-host")
+        if (nd == nil) then
+            local home = os.getenv("HOME")
+            if vim.g.is_laptop then
+                nd = home .. "/Documents/Installations/nodejs/node_modules/.bin/neovim-node-host"
+            else
+                nd = home .. "/Installations/node-v14.17.5-linux-x64/bin/neovim-node-host"
+            end
+        end
+        return string.gsub(nd, "\n", "")
 
     end
 end

@@ -82,10 +82,6 @@ vim.g.only_laptop           = onlylptp                      -- true if only one 
 vim.g.username_uid          = uid                           -- save uid  as a global variable
 vim.g.have_git              = have_git                      -- save whether the git executable is available
 
-if islpt then
-    vim.g.node_host_prog    = home .. "/Documents/Installations/nodejs/node_modules/.bin/neovim-node-host"
-    vim.g.python3_host_prog = "/usr/bin/python3"
-else
-    vim.g.node_host_prog        = home .. "/Installations/node-v14.17.5-linux-x64/bin/neovim-node-host"
-    vim.g.python3_host_prog     = home .. '/Installations/python3.6.db9/bin/python3'
-end
+-- some global settings for binaries. Call only after is_laptop is set
+vim.g.node_host_prog        = getglobal("node")
+vim.g.python3_host_prog     = getglobal("python3")
