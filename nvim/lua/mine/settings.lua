@@ -19,6 +19,7 @@ vo.foldenable   = false                                     -- do not fold by de
 vo.foldexpr     = "nvim_treesitter#foldexpr()"              -- use nvim_treesitter to figure out expression
 vo.foldmethod   = "expr"                                    -- expression determines fold
 vo.formatoptions= "tcroq1nj"                                -- format options for all cases
+vo.inccommand   = "split"                                   -- shows partial results in a preview window
 vo.ignorecase   = true                                      -- case insensitive search
 vo.modeline     = true                                      -- Read modeline from file
 vo.mouse        = "a"                                       -- Good mouse behavior
