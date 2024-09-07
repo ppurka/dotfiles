@@ -8,10 +8,8 @@ M = function()
         fh:close()
     end
     if ok then
-        --vim.cmd([[Telescope git_files theme=dropdown]])
         pcall(require("telescope.builtin").git_files, {theme = "dropdown"})
     else
-        --vim.cmd([[Telescope find_files theme=dropdown no_ignore=true]])
         pcall(require("telescope.builtin").find_files, {theme = "dropdown", no_ignore = true})
     end
 end

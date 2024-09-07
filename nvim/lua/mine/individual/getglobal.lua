@@ -25,17 +25,13 @@ M = function(arg)
         if (vim.g.is_laptop ~= nil) then
             islpt = vim.g.is_laptop
         else
-            -- this should be done only once (1 => local laptop/desktop)
-            islpt = tonumber(exec("hostname -d | grep -c localdomain")) == 1
-            if not islpt then   -- try again using single monitor resolution
-                islpt = (tonumber(exec("xrandr |& grep -csw connected")) == 1) and
-                        (tonumber(exec("xrandr |& grep -cs 'connected.*1920x10'")) == 1)
-            end
+            -- faster - just check os.execute that behaves okay now
+            islpt = os.execute("xrandr |& grep -qcs 'connected 1920x10'") == 0
         end
     end
 
     if (arg == "night_time") then
-        local hour  = tonumber(exec("date +%H"))    -- current hour in 24 hour format
+        local hour  = tonumber(os.date("%H"))       -- current hour in 24 hour format
         local day   = (7 <= hour) and (hour < 19)   -- day time
         return not day
 
@@ -57,7 +53,7 @@ M = function(arg)
             isterm = vim.g.is_term
         else
             -- run this exec only once. It is unique per session
-            isterm = tonumber(exec("tty -s && echo 1 || echo 0")) == 1
+            isterm = not os.execute("tty -s")
         end
         return isterm
 
@@ -92,7 +88,7 @@ M = function(arg)
             if vim.g.is_laptop then
                 nd = home .. "/Documents/Installations/nodejs/node_modules/.bin/neovim-node-host"
             else
-                nd = home .. "/Installations/node-v14.17.5-linux-x64/bin/neovim-node-host"
+                nd = home .. "/Installations/node.db11/bin/neovim-node-host"
             end
         end
         return string.gsub(nd, "\n", "")
