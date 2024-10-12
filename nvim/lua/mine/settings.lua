@@ -82,6 +82,7 @@ vim.g.night_time            = not day                       -- check if it is ni
 vim.g.only_laptop           = onlylptp                      -- true if only one display (laptop) is connected.
 vim.g.username_uid          = uid                           -- save uid  as a global variable
 vim.g.have_git              = have_git                      -- save whether the git executable is available
+vim.g.custombg              = false                         -- whether we toggled 'background' using Ctrl-F5
 
 -- some global settings for binaries. Call only after is_laptop is set
 vim.g.node_host_prog        = getglobal("node")

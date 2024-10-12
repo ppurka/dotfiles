@@ -8,6 +8,7 @@
 -- 6. "have_git"    - (boolean) whether git is available
 -- 7. "python3"     - (string ) try to use env; get python3 path; call after determining is_laptop
 -- 8. "node"        - (string ) try to use env; get nodejs path; call after determining is_laptop
+-- 9. "custombg"    - (boolean) whether the background was toggled using Ctrl-F5
 local M = {}
 
 -- use function instead of os.execute. neovide tends to hang on os.execute
@@ -92,6 +93,9 @@ M = function(arg)
             end
         end
         return string.gsub(nd, "\n", "")
+
+    elseif (arg == "custombg") then
+        return vim.g.custombg
 
     end
 end

@@ -19,6 +19,7 @@ keymap("", "<Space>", "<Nop>", opts)
 keymap("n", "<C-F2>",    ":Telescope oldfiles  theme=dropdown<CR>",        opts) -- previously opened files
 keymap("n", "<C-F3>",    ":Telescope live_grep theme=dropdown<CR>",        opts) -- search in currdir
 keymap("n", "<C-F4>",    ":IBLToggle<CR>",                                 opts) -- toggle indent marker
+keymap("n", "<C-F5>",    ":lua require('mine.individual.custombg')()<CR>", opts) -- toggle background
 keymap("n", "<C-0>",     ":lua require('mine.individual.myfonts')(0)<CR>", opts) -- reset font
 keymap("n", "<C-->",     ":lua require('mine.individual.myfonts')(-1)<CR>",opts) -- decrease font
 keymap("n", "<C-=>",     ":lua require('mine.individual.myfonts')(1)<CR>", opts) -- increase font
@@ -45,12 +46,13 @@ keymap("n", "<S-Right>", "gt",                                  opts)   -- next 
 
 
 ----------------------- INSERT MODE -------------------------
-keymap("i", "<C-F2>",    "<Esc>:Telescope oldfiles  theme=dropdown<CR>",      opts) -- previously opened files
-keymap("i", "<C-F3>",    "<Esc>:Telescope live_grep theme=dropdown<CR>",      opts) -- search in currdir
-keymap("i", "<C-F4>",    "<Esc>:IBLToggle<CR>a",                              opts) -- toggle indent marker
-keymap("i", "<S-F3>",    "<Esc>:lua require('mine.individual.myspel')()<CR>a",opts) -- rev spell search or ts,sts
-keymap("i", "<F2>",      "<Esc>:lua require('mine.individual.myfind')()<CR>", opts) -- look for files
-keymap("i", "<F3>",      "<Esc>:lua require('mine.individual.mygrep')()<CR>", opts) -- search all files
+keymap("i", "<C-F2>",    "<Esc>:Telescope oldfiles  theme=dropdown<CR>",        opts) -- previously opened files
+keymap("i", "<C-F3>",    "<Esc>:Telescope live_grep theme=dropdown<CR>",        opts) -- search in currdir
+keymap("i", "<C-F4>",    "<Esc>:IBLToggle<CR>a",                                opts) -- toggle indent marker
+keymap("i", "<C-F5>",    "<Esc>:lua require('mine.individual.custombg')()<CR>a",opts) -- toggle background
+keymap("i", "<S-F3>",    "<Esc>:lua require('mine.individual.myspel')()<CR>a",  opts) -- rev spell search or ts,sts
+keymap("i", "<F2>",      "<Esc>:lua require('mine.individual.myfind')()<CR>",   opts) -- look for files
+keymap("i", "<F3>",      "<Esc>:lua require('mine.individual.mygrep')()<CR>",   opts) -- search all files
 keymap("i", "<F4>",      "<Esc>:Vista!!<CR>",                   opts)
 keymap("i", "<C-a>",     "<Home>",                              opts)
 keymap("i", "<C-e>",     "<End>",                               opts)

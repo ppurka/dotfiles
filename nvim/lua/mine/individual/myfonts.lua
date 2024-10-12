@@ -21,15 +21,16 @@ local M = function(arg)
 
     local gui_font_size = vim.g.gui_font_size
     if arg == 0 then                                            -- default font setting
-        if (not vim.g.is_laptop         or
-            vim.g.username_uid == nil   or
-            vim.g.username_uid == 0) then
-            gui_font_size = 14                                  -- font for gui windows
-        else
-            vim.g.only_laptop = getglobal("only_laptop")
-            gui_font_size     = (vim.g.only_laptop and 12 or 16) -- small @ laptop
-        end
+        --if (not vim.g.is_laptop         or
+        --    vim.g.username_uid == nil   or
+        --    vim.g.username_uid == 0) then
+        --    gui_font_size = 12                                  -- font for gui windows
+        --else
+        --    vim.g.only_laptop = getglobal("only_laptop")
+        --    gui_font_size     = (vim.g.only_laptop and 12 or 14) -- small @ laptop
+        --end
         vim.g.custom_font = 0
+        gui_font_size = 12                                      -- font for gui windows
     elseif arg == -1 then                                       -- decrease font size
         gui_font_size     = math.max(6, gui_font_size - 1)      -- min is 6
         vim.g.custom_font = 1
