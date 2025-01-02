@@ -31,10 +31,48 @@ M = function(arg)
         end
     end
 
+
     if (arg == "night_time") then
-        local hour  = tonumber(os.date("%H"))       -- current hour in 24 hour format
-        local day   = (7 <= hour) and (hour < 19)   -- day time
-        return not day
+        -- Determine first light and last light times and store it once
+        if not vim.g.starthour then
+            -- The contents of the file "day_time_file.txt" should be
+            -- starthour startmin endhour endmin
+            -- It can be populated with a cron job that runs like this:
+            --  curl -s -X GET 'https://api.sunrisesunset.io/json?lat=<latitude>&lng=<longitude>' |
+            --      tr ',' '\n' | sed -n -e \
+            --      '/_light":/s/^.*_light":"\([0-9]\+\):\([0-9]\+\):.*$/\1 \2/p' |
+            --      tr '\n' ' ' > $day_time_file
+            local home          = os.getenv("HOME")
+            local day_time_file = home .. "/.config/nvim/day_time_file.txt"
+            local f             = io.open(day_time_file, "r")
+            local starthour, startmin, endhour, endmin
+            if f then
+                starthour, startmin, endhour, endmin = f:read("*number",
+                                                              "*number",
+                                                              "*number",
+                                                              "*number")
+                f:close()
+            end
+            -- if for any reason we get garbage or things are not read
+            -- correctly, revert back to 7am - 7pm
+            if not starthour or not startmin or not endhour or not endmin then
+                starthour, startmin, endhour, endmin = 7, 0, 19, 0
+            end
+            -- store the value
+            vim.g.starthour = starthour
+            vim.g.endhour   = endhour
+            vim.g.startmin  = startmin
+            vim.g.endmin    = endmin
+        end
+
+        local hour      = tonumber(os.date("%H"))                           -- current hour in 24 hour format
+        local minute    = tonumber(os.date("%M"))                           -- current minute
+        local daytime   = ((vim.g.starthour < hour or
+                            (vim.g.starthour == hour and vim.g.startmin <= minute)) and
+                           (hour < vim.g.endhour or
+                            (hour == vim.g.endhour and minute < vim.g.endmin)))
+
+        return not daytime
 
     elseif (arg == "is_laptop") then
         return islpt
