@@ -40,7 +40,7 @@ My configurations for neovim (at least version 0.7), neovide, neovim-qt files.
     url='https://api.sunrisesunset.io/json?lat=<latitude>&lng=<longitude>&time_format=24'
     curl -s -X GET "$url"   | \
         tr ',' '\n'         | \
-        sed -n -e '/_light":/s/^.*_light":"\([0-9]\+\):\([0-9]\+\):.*$/\1 \2/p' | \
+        sed -n -e '/^"sun/s/^"sun.*:"\([0-9]\+\):\([0-9]\+\):.*$/\1 \2/p' | \
         tr '\n' ' ' > ~/.config/nvim/day_time_file.txt
     ```
 
