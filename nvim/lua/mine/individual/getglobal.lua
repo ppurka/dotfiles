@@ -125,7 +125,7 @@ M = function(arg)
         if (nd == nil) then
             local home = os.getenv("HOME")
             if vim.g.is_laptop then
-                nd = home .. "/Documents/Installations/nodejs/node_modules/.bin/neovim-node-host"
+                nd = home .. "/Documents/Installations/nodejs/bin/neovim-node-host"
             else
                 nd = home .. "/Installations/node.db11/bin/neovim-node-host"
             end
