@@ -44,6 +44,9 @@ keymap("n", "<S-Left>",  "gT",                                  opts)   -- previ
 keymap("n", "<S-Right>", "gt",                                  opts)   -- next tab
 --keymap("n", "<C-I>",     "<C-A>",                             opts)   -- increment number
 
+if not vim.g.neovide then -- likely running nvim-qt
+keymap("n", "<F1>",      ":GuiTreeviewToggle<CR>",              opts)   -- toggle QT file side bar
+end
 
 ----------------------- INSERT MODE -------------------------
 keymap("i", "<C-F2>",    "<Esc>:Telescope oldfiles  theme=dropdown<CR>",        opts) -- previously opened files
@@ -66,6 +69,10 @@ keymap("i", "<S-F4>",    "<Esc>:set ts=4 sts=4 sw=4 et<CR>a",   opts)
 keymap("i", "<S-F8>",    "<Esc>:set ts=8 sts=8 sw=8<CR>a",      opts)
 keymap("i", "<S-Left>",  "<Esc>gTa",                            opts)
 keymap("i", "<S-Right>", "<Esc>gta",                            opts)
+
+if not vim.g.neovide then -- likely running nvim-qt
+keymap("i", "<F1>",      "<Esc>:GuiTreeviewToggle<CR>a",        opts)   -- toggle QT file side bar
+end
 
 
 ----------------------- VISUAL MODE -------------------------
