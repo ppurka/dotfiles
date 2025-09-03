@@ -1,13 +1,6 @@
 -- 
 -- Following were installed in user dir
 --   - pip3 install --user fortran-language-server
---   - rust, maintained using rustup. Compiling rust takes too long. Hence,
---     system has only rust-bin package. Personal installation is in
---     ~/Documents/Installations/{cargo,rustup}
--- 
--- Following were installed in system
---   - clang
---   - rust
 -- 
 -- Packages installed using CocInstall are present in ~/.config/coc
 
@@ -72,22 +65,6 @@ function _G.coc_on_tab(fwd)
     end
 end
 
----- Hover function definition when K is pressed over a function
---function _G.coc_show_documentation()
---    local go = vim.api.nvim_get_option
---    if (vim.bo.filetype == "vim" or vim.bo.filetype == "help") then
---        local mycmd = 'help ' .. vim.fn.expand('<cword>')
---        vim.api.nvim_exec(mycmd, true)
---    else
---        if vim.fn['coc#rpc#ready']() == 1 then
---            --vim.fn.CocActionAsync('doHover')
---            vim.cmd("call CocActionAsync('definitionHover')")
---        else
---            vim.cmd('! ' .. go("keywordprg") .. ' ' .. vim.fn.expand('<cword>'))
---        end
---    end
---end
-
 ------------- End  Functions for coc.nvim ---------------------------
 
 -------------     Settings for coc.nvim -----------------------------
@@ -98,9 +75,6 @@ vim.api.nvim_create_autocmd("CursorHold",
 )
 
 -- Use K to show documentation in preview window.
---vim.api.nvim_set_keymap("n", "K", "v:lua.coc_show_documentation()",
---    {noremap = true, silent = true, expr = true}
---)
 vim.keymap.set("n", "K", "<cmd>silent call CocActionAsync('definitionHover')<CR>",
     {}
 )
