@@ -72,6 +72,10 @@ vim.g.did_load_filetypes    = 0                             -- disable use of fi
 vim.g.loaded_python_provider= 0                             -- No python2
 vim.g.loaded_ruby_provider  = 0                             -- No Ruby
 vim.g.loaded_perl_provider  = 0                             -- No Perl
+vim.g.netrw_banner          = 0                             -- turn off banner. Use I to bring it back
+--vim.g.netrw_keepdir         = 0                             -- recommended to keep current & browsing dir synced
+vim.g.netrw_liststyle       = 3                             -- tree style listing
+vim.g.netrw_winsize         = 20                            -- 20% of window
 
 -- set the custom global variables
 vim.g.custom_font           = 0                             -- whether we have set a custom font

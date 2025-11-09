@@ -30,6 +30,7 @@ if vim.g.have_git then
             , "rst"
             , "rust"
             , "vim"
+            , "yaml"
         },
         sync_install = false,   -- install languages synchronously
         highlight = {

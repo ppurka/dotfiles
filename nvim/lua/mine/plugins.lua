@@ -6,13 +6,13 @@ local Plug = vim.fn['plug#']
 vim.cmd([[silent! call plug#begin('~/.config/nvim/plugged')]])
 
 --Plug('dhananjaylatkar/cscope_maps.nvim')            -- cscope keymaps
-Plug('iamcco/markdown-preview.nvim', {              -- markdown preview
-   ['do'] = function()
-       vim.cmd([[mkdp#util#install()]])
-   end,
-   ['for'] = {'markdown', 'vim-plug'}
-   }
-)
+--Plug('iamcco/markdown-preview.nvim', {              -- markdown preview
+--   ['do'] = function()
+--       vim.cmd([[mkdp#util#install()]])
+--   end,
+--   ['for'] = {'markdown', 'vim-plug'}
+--   }
+--)
 Plug 'inkarkat/vim-ingo-library'                    -- Needed by vim-mark
 Plug 'inkarkat/vim-mark'                            -- Multiple colors
 Plug 'lewis6991/impatient.nvim'                     -- Cache lua based plugins to improve startup
@@ -21,13 +21,15 @@ Plug 'kyazdani42/nvim-web-devicons'                 -- for lualine
 Plug 'lukas-reineke/indent-blankline.nvim'          -- for showing current indent
 Plug('neoclide/coc.nvim', {branch = 'release'})     -- coc.nvim; ~/.config/coc
 Plug 'nvim-lualine/lualine.nvim'                    -- statusline
-Plug 'nvim-lua/plenary.nvim'                        -- needed by telescope
+Plug 'nvim-lua/plenary.nvim'                        -- needed by telescope, codecompanion
 Plug 'nvim-telescope/telescope.nvim'                -- telescope
 Plug('nvim-treesitter/nvim-treesitter', {           -- needed by neogen
     ['do'] = function()
         vim.cmd([[TSUpdate]])
     end
 })
+Plug 'MeanderingProgrammer/render-markdown.nvim'    -- Rendering markdown files
+Plug 'olimorris/codecompanion.nvim'                 -- AI completion
 Plug 'savq/melange'                                 -- Colorscheme
 Plug 'vim-scripts/auto-pairs-gentle'                -- need extra config
 vim.fn['plug#end']()
@@ -97,4 +99,9 @@ vim.cmd([[highlight MarkWord4 ctermbg=16 ctermfg=Black guibg=#00FFFF guifg=Black
 ----------------  END  vim-mark    configuration  ------------------
 
 
+---------------- START render-markdown config     ------------------
+require('render-markdown').setup({
+    completions = { lsp = { enabled = true } },
+})
+----------------  END  render-markdown config     ------------------
 

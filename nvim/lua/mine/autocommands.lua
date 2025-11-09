@@ -38,6 +38,12 @@ local setjs     = function() vim.o.textwidth  = 0
                                 vim.b.coc_diagnostic_disable = 1
                              end
                   end
+local setnetrw  = function() printwarn()
+                            local opts   = { noremap = true, silent = true }
+                            local keymap = vim.api.nvim_set_keymap  -- short name
+                            keymap("n", "<Leader>L", "<CR>:Lexplore<CR>", opts)
+                  end
+
 local settext   = function() vim.opt.filetype = "text"                          end
 local set8      = function()
                     vim.opt.tabstop     = 8
@@ -63,6 +69,7 @@ aucmd(bufs,                     {pattern="*.md",                command  = "set 
 aucmd("BufReadPre",             {pattern="*.js",                callback = setjs})
 aucmd("FileChangedShellPost",   {pattern = "*",                 callback = printwarn})
 aucmd("FileType",               {pattern="make",                callback = set8})
+aucmd("FileType",               {pattern="netrw",               callback = setnetrw})
 aucmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"},
                                 {pattern = "*",                 command  = "checktime"})
 aucmd("FocusGained",            {pattern = "*",                 callback = setbg})

@@ -45,7 +45,7 @@ keymap("n", "<S-Right>", "gt",                                  opts)   -- next 
 --keymap("n", "<C-I>",     "<C-A>",                             opts)   -- increment number
 
 if not vim.g.neovide then -- likely running nvim-qt
-keymap("n", "<F1>",      ":GuiTreeviewToggle<CR>",              opts)   -- toggle QT file side bar
+keymap("n", "<Leader>L", ":Lexplore<CR>",                       opts)   -- toggle QT file side bar
 end
 
 ----------------------- INSERT MODE -------------------------
@@ -71,7 +71,7 @@ keymap("i", "<S-Left>",  "<Esc>gTa",                            opts)
 keymap("i", "<S-Right>", "<Esc>gta",                            opts)
 
 if not vim.g.neovide then -- likely running nvim-qt
-keymap("i", "<F1>",      "<Esc>:GuiTreeviewToggle<CR>a",        opts)   -- toggle QT file side bar
+keymap("i", "<Leader>L", "<Esc>:Lexpore<CR>",                   opts)   -- toggle QT file side bar
 end
 
 
