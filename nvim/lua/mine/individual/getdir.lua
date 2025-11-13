@@ -7,7 +7,7 @@
 -- This function will search through at most CNT_MAX parent directories
 --
 local M = {}
-local CNT_MAX = 3
+local CNT_MAX = 10
 
 local function exists(path)
     does_exist = false
