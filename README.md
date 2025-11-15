@@ -10,6 +10,8 @@ My configurations for neovim (at least version 0.7), neovide, neovim-qt files.
 * Mostly a port from my original vimscript.
 * Original Lua configuration ideas taken from
   [Neovim-from-scratch](https://github.com/LunarVim/Neovim-from-scratch)
+* Further updates in 2025, based on less plugins, following the very good guide
+  in [Neovim LSP Client Guide](https://vonheikemen.github.io/devlog/tools/neovim-lsp-client-guide/)
 * The current configuration has diverged significantly from the setup in
   Neovim-from-scratch, with tons of custom functions. Example changes:
 
