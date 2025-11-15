@@ -76,6 +76,6 @@ aucmd("FileType",               {pattern="netrw",               callback = setne
 aucmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"},
                                 {pattern = "*",                 command  = "checktime"})
 aucmd("FocusGained",            {pattern = "*",                 callback = setbg})
-aucmd("VimEnter",               {pattern = "*",                 command  = "IBLDisable"})
+--aucmd("VimEnter",               {pattern = "*",                 command  = "IBLDisable"})
 aucmd({"CursorHold", "CursorHoldI", "CursorMoved"},
                                 {pattern = "*",                 callback = showdiag})
