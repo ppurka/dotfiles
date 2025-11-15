@@ -6,7 +6,7 @@
 -- 3.  1:   increase font size
 -- 4.  2:   reset to default if custom_font is not set
 
-local getglobal = require("mine.individual.getglobal")
+-- local getglobal = require("mine.individual.getglobal")
 
 local M = function(arg)
     -- reset arg to 0 if 2 is passed

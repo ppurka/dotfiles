@@ -48,6 +48,10 @@ vo.wildignore:append('*.flac,*.ogg,*.mpc,*.avi,*.mp4')      -- ignore files
 vo.wildignore:append('*.bz2,*.mpeg')                        -- ignore files
 vo.wildignore:append('*/.git/*,*/.hg/*,*/.svn/*,*/.cvs/*')  -- ignore dirs
 
+-- cache lua plugins. The cache path can be obtained using :echo stdpath('cache')
+-- Use `nvim --startuptime aa.log` to check the startup time
+vim.loader.enable()
+
 -- some settings based on host names
 if islpt then
     if uid == nil then

@@ -9,7 +9,6 @@
 -- 7. "python3"     - (string ) try to use env; get python3 path; call after determining is_laptop
 -- 8. "node"        - (string ) try to use env; get nodejs path; call after determining is_laptop
 -- 9. "custombg"    - (boolean) whether the background was toggled using Ctrl-F5
-local M = {}
 
 -- use function instead of os.execute. neovide tends to hang on os.execute
 local function exec(cmd)
@@ -19,7 +18,7 @@ local function exec(cmd)
     return output
 end
 
-M = function(arg)
+local M = function(arg)
     -- check this only once
     local islpt = false
     if (arg == "is_laptop" or arg == "only_laptop") then

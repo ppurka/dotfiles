@@ -1,6 +1,4 @@
-local M = {}
-
-M = function()
+local M = function()
     local ok = false
     if vim.g.have_git then
         local fh = assert(io.popen('git status --untracked-files=no --ignore-submodules=all 2>&1 | head -n 1'))

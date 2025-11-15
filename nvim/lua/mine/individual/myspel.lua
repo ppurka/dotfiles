@@ -1,5 +1,4 @@
-local M = {}
-M = function()
+local M = function()
     if vim.o.spell then
         vim.api.nvim_feedkeys("[s", "n", false)
     else

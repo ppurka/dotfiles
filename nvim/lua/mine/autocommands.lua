@@ -55,6 +55,9 @@ local setmake   = function()
                     vim.opt.filetype = "make"
                     set8()
                   end
+local showdiag  = function()
+                    vim.diagnostic.open_float()
+                  end
 
 local aucmd     = vim.api.nvim_create_autocmd
 local bufs      = {"BufReadPost", "BufNewFile"}
@@ -74,3 +77,5 @@ aucmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"},
                                 {pattern = "*",                 command  = "checktime"})
 aucmd("FocusGained",            {pattern = "*",                 callback = setbg})
 aucmd("VimEnter",               {pattern = "*",                 command  = "IBLDisable"})
+aucmd({"CursorHold", "CursorHoldI", "CursorMoved"},
+                                {pattern = "*",                 callback = showdiag})

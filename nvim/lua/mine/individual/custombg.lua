@@ -1,6 +1,6 @@
 -- toggle the background and set vim.g.custombg to true
 
-local M = function(arg)
+local M = function()
     local bgprev = vim.api.nvim_get_option("background")
     vim.opt.background = (bgprev == "dark") and "light" or "dark"
 
