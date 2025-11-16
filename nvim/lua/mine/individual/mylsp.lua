@@ -1,8 +1,3 @@
--- specific lsp configurations
-vim.lsp.config("clangd", {
-    cmd = {"clangd", "--background-index", "--clang-tidy"}
-})
-
 -- Enable several lsp servers
 -- Language server                      |   install method
 vim.lsp.enable("clangd")                --  installed in the system
