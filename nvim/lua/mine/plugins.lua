@@ -34,8 +34,9 @@ vim.g.AutoPairsUseInsertedCount = 1
 
 ---------------- START blink.cmp   configuration  ------------------
 require('blink.cmp').setup({
-    keymap      = { preset          = 'super-tab' },
     completion  = { documentation   = { auto_show = true } },
+    keymap      = { preset          = 'super-tab' },
+    fuzzy       = { implementation  = 'lua' },
 })
 ---------------- END   blink.cmp   configuration  ------------------
 
