@@ -1,0 +1,6 @@
+{
+    "incl_suffixes": [".fi"],
+    "source_dirs"  : [
+        "..", "../.."
+    ]
+}
