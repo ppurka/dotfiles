@@ -33,6 +33,8 @@ vim.g.AutoPairsUseInsertedCount = 1
 ----------------  END  auto-pairs-gentle config   ------------------
 
 ---------------- START blink.cmp   configuration  ------------------
+-- fuzzy search binary is in
+-- ~/.config/nvim/plugged/blink.cmp/target/release/libblink_cmp_fuzzy.so
 require('blink.cmp').setup({
     completion  = { documentation   = { auto_show = true },
                     ghost_text      = { enabled   = true },
