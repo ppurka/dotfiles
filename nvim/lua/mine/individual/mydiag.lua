@@ -10,7 +10,6 @@
 -- Styling of the floating window
 vim.diagnostic.config({
     float = {
-        border    = "rounded",
         focusable = false,
         title     = " LSP Diagnostics ",
         title_pos = "center",

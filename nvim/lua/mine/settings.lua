@@ -41,6 +41,7 @@ vo.title        = true                                      -- Set window title 
 vo.undodir      = home .. "/.local/share/nvim/undo"         -- undo
 vo.undofile     = true                                      -- Persistent undo. Stored in ~/.local/share/nvim/undo
 vo.wildmode     = "longest:full,full"                       -- Provide a nice menu before the completion of commands
+vo.winborder    = "rounded"                                 -- Rounded floating window borders
 vo.wildignore:append('*.pdf,*.o,*.a,*.zip,*.tar,*.pyc')     -- ignore files
 vo.wildignore:append('*.xz,*.gif,*.png,*.jpeg,*.jpg,*.PNG') -- ignore files
 vo.wildignore:append('*.JPG,*.JPEG,*.chm,*.mov,*.mp3,*.wav')-- ignore files
