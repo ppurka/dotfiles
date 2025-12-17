@@ -42,7 +42,7 @@ local M = function(arg)
     -- this is safe to do because vim.g.gui_font_size is set to a default value
     -- in settings.lua
     local to_font = "monospace:h" .. tostring(gui_font_size)
-    local guifont = vim.api.nvim_get_option("guifont")
+    local guifont = vim.api.nvim_get_option_value("guifont", {})
     local setfont = vim.g.custom_font == 1 or to_font ~= guifont
     if setfont then
         vim.opt.guifont     = to_font

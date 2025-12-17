@@ -9,7 +9,7 @@ local printwarn = function() vim.notify("File changed on disk. Buffer reloaded."
 local setbg     = function()
                     -- First set background if we have not set custom background
                     if not vim.g.custombg then
-                        local bgprev = vim.api.nvim_get_option("background")
+                        local bgprev = vim.api.nvim_get_option_value("background", {})
                         vim.g.night_time = getglobal("night_time")
                         if (vim.g.night_time  and bgprev ~= "dark") then
                             vim.opt.background = "dark"
