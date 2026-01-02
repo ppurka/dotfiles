@@ -71,7 +71,7 @@ aucmd(bufs,                     {pattern="*_mod",               callback = sette
 aucmd(bufs,                     {pattern="*.md",                command  = "set conceallevel=2"})
 aucmd("BufReadPre",             {pattern="*.js",                callback = setjs})
 aucmd("FileChangedShellPost",   {pattern = "*",                 callback = printwarn})
-aucmd("FileType",               {pattern="make",                callback = set8})
+aucmd("FileType",               {pattern={"make","cmake"},      callback = set8})
 aucmd("FileType",               {pattern="netrw",               callback = setnetrw})
 aucmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"},
                                 {pattern = "*",                 command  = "checktime"})

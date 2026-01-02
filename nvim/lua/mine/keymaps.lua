@@ -39,7 +39,7 @@ keymap("n", "<C-Left>",  ":vertical resize -2<CR>",             opts)   -- resiz
 keymap("n", "<C-Right>", ":vertical resize +2<CR>",             opts)   -- resize with arrows
 keymap("n", "<S-F2>",    ":set ts=2 sts=2 sw=2 et<CR>",         opts)
 keymap("n", "<S-F4>",    ":set ts=4 sts=4 sw=4 et<CR>",         opts)
-keymap("n", "<S-F8>",    ":set ts=8 sts=8 sw=8<CR>",            opts)
+keymap("n", "<S-F8>",    ":set ts=8 sts=8 sw=8 noet<CR>",       opts)
 keymap("n", "<S-Left>",  "gT",                                  opts)   -- previous tab
 keymap("n", "<S-Right>", "gt",                                  opts)   -- next tab
 --keymap("n", "<C-I>",     "<C-A>",                             opts)   -- increment number
@@ -66,7 +66,7 @@ keymap("i", "<C-l>",     "<Right>",                             opts)
 keymap("i", "<C-s>",     "<Esc>:w<CR>a",                        opts)
 keymap("i", "<S-F2>",    "<Esc>:set ts=2 sts=2 sw=2 et<CR>a",   opts)
 keymap("i", "<S-F4>",    "<Esc>:set ts=4 sts=4 sw=4 et<CR>a",   opts)
-keymap("i", "<S-F8>",    "<Esc>:set ts=8 sts=8 sw=8<CR>a",      opts)
+keymap("i", "<S-F8>",    "<Esc>:set ts=8 sts=8 sw=8 noet<CR>a", opts)
 keymap("i", "<S-Left>",  "<Esc>gTa",                            opts)
 keymap("i", "<S-Right>", "<Esc>gta",                            opts)
 
