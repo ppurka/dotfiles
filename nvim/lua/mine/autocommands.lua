@@ -38,7 +38,7 @@ local setjs     = function() vim.o.textwidth  = 0
                                 vim.b.coc_diagnostic_disable = 1
                              end
                   end
-local setnetrw  = function() printwarn()
+local setnetrw  = function()
                             local opts   = { noremap = true, silent = true }
                             local keymap = vim.api.nvim_set_keymap  -- short name
                             keymap("n", "<Leader>L", "<CR>:Lexplore<CR>", opts)
