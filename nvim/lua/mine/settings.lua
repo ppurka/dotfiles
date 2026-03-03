@@ -14,6 +14,7 @@ vo.autochdir    = true                                      -- Auto cd to curren
 vo.autoread     = true                                      -- Monitor file changes
 vo.background   = (day and not isterm) and "light" or "dark"-- default dark/light BG
 vo.clipboard    = "unnamed,unnamedplus"                     -- Copy / Paste from both secondary,primary registers
+vo.completeopt  = { "fuzzy", "noselect", "noinsert" }       -- some reasonable completion options
 vo.expandtab    = true                                      -- No tab characters allowed
 vo.foldenable   = false                                     -- do not fold by default
 vo.foldexpr     = "nvim_treesitter#foldexpr()"              -- use nvim_treesitter to figure out expression
