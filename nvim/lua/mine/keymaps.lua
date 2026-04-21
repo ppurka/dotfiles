@@ -32,7 +32,7 @@ keymap("n", "<F9>",      ":set ft=valgrind nowrap<CR>",         opts)   -- some 
 keymap("n", "<A-j>",     "<Esc>:m .+1<CR>==gi",                 opts)   -- move text up
 keymap("n", "<A-k>",     "<Esc>:m .-2<CR>==gi",                 opts)   -- move text down
 keymap("n", "<C-D>",     "<C-X>",                               opts)   -- decrement number
-keymap("n", "<C-s>",     ":w<CR>",                              opts)   -- save file
+--keymap("n", "<C-s>",     ":w<CR>",                              opts)   -- save file
 keymap("n", "<C-Up>",    ":resize -2<CR>",                      opts)   -- resize with arrows
 keymap("n", "<C-Down>",  ":resize +2<CR>",                      opts)   -- resize with arrows
 keymap("n", "<C-Left>",  ":vertical resize -2<CR>",             opts)   -- resize with arrows
@@ -61,7 +61,7 @@ keymap("i", "<C-h>",     "<Left>",                              opts)
 keymap("i", "<C-j>",     "<Down>",                              opts)
 keymap("i", "<C-k>",     "<Up>",                                opts)
 keymap("i", "<C-l>",     "<Right>",                             opts)
-keymap("i", "<C-s>",     "<Esc>:w<CR>a",                        opts)
+--keymap("i", "<C-s>",     "<Esc>:w<CR>a",                        opts)
 keymap("i", "<S-F2>",    "<Esc>:set ts=2 sts=2 sw=2 et<CR>a",   opts)
 keymap("i", "<S-F4>",    "<Esc>:set ts=4 sts=4 sw=4 et<CR>a",   opts)
 keymap("i", "<S-F8>",    "<Esc>:set ts=8 sts=8 sw=8 noet<CR>a", opts)

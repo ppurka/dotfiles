@@ -4,7 +4,7 @@
 --require("mine.individual.coc_nvim")
 
 -- following is for codecompanion
---require("mine.individual.codecompanion")
+require("mine.individual.codecompanion")
 
 -- for diagnostics
 require("mine.individual.mydiag")

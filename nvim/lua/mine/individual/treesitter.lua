@@ -23,6 +23,7 @@ if vim.g.have_git then
             , "lua"
             , "make"
             , "markdown"
+            , "markdown_inline"
             , "perl"
             , "python"
             , "r"
