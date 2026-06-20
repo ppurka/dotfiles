@@ -15,8 +15,9 @@ My configurations for neovim (at least version 0.7), neovide, neovim-qt files.
 * The current configuration has diverged significantly from the setup in
   Neovim-from-scratch, with tons of custom functions. Example changes:
 
-  * custom functions for finding top level git directory, Telescope search,
-    Telescope find files
+  * custom functions for
+    * Telescope search,
+    * Telescope find files
   * custom autocommands for setting background (dark / light) based on daylight.
     The daylight is determined based on timings (7 am to 7 pm), or optionally
     based on a file `~/.config/nvim/day_time_file.txt`. There is no
@@ -50,9 +51,6 @@ My configurations for neovim (at least version 0.7), neovide, neovim-qt files.
     is very distinctive.
   * custom functions for setting fonts based on whether I am working on my
     laptop and whether laptop is connected to (larger) external display
-  * custom Lua functions for coc.nvim
-  * ~~custom Lua based settings for cscope~~. Latest neovim does not have cscope
-    support any more
   * custom setting for checking whether we are running in a terminal
 
 ## zsh-config
