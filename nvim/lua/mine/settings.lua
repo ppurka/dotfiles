@@ -73,8 +73,6 @@ end
 vim.b.fortran_free_source   = 1                             -- This line *must* be present before 'syntax on'
 vim.b.fortran_do_enddo      = 1                             -- Indent do-endo keywords
 -- global variables
-vim.g.do_filetype_lua       = 1                             -- use the new filetype.lua method in neovim-0.7
-vim.g.did_load_filetypes    = 0                             -- disable use of filetype.vim
 vim.g.loaded_python_provider= 0                             -- No python2
 vim.g.loaded_ruby_provider  = 0                             -- No Ruby
 vim.g.loaded_perl_provider  = 0                             -- No Perl

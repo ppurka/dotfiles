@@ -1,5 +1,5 @@
 -- configuration taken from plugged/nvim.lspconfig/lsp/lua_ls.lua
-vim.lsp.config('lua_ls', {
+return {
     on_init = function(client)
         if client.workspace_folders then
             local path = client.workspace_folders[1].name
@@ -49,4 +49,4 @@ vim.lsp.config('lua_ls', {
     settings = {
         Lua = {}
     }
-})
+}

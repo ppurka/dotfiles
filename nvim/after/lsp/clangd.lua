@@ -1,5 +1,5 @@
 -- specific lsp configurations
-vim.lsp.config("clangd", {
+return {
     cmd = {"clangd", "--background-index", "--clang-tidy"},
     root_markers = {
         '.clangd',
@@ -10,4 +10,4 @@ vim.lsp.config("clangd", {
         'configure.ac', -- AutoTools
         -- '.git',      -- disable git. Depend on compile_commands.json
     },
-})
+}

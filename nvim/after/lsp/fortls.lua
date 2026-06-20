@@ -1,6 +1,6 @@
 -- override the command
 local filepath = os.getenv("HOME") .. "~/.config/nvim/after/lsp/fortls.json"
-vim.lsp.config("fortls", {
+return {
     cmd = {
         "fortls",
         "--config", filepath,
@@ -9,4 +9,4 @@ vim.lsp.config("fortls", {
         "--hover_language=fortran",
         "--use_signature_help",
     }
-})
+}

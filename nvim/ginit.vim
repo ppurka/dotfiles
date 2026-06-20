@@ -20,10 +20,4 @@ if exists(":GuiRenderLigatures")
     GuiRenderLigatures  1
 endif
 
-" Right Click Context Menu (Copy-Cut-Paste) - inbuilt in neovim-0.10 now
-"""nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
-"""inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
-"""vnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
-"xnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
-
 endif   " end if not neovide

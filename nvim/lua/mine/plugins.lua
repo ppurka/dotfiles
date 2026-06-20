@@ -1,32 +1,30 @@
--- see internetz for vim-plug and lua
---
-local Plug = vim.fn['plug#']
--- vim.fn['plug#begin']('~/.config/nvim/plugged')
--- We need this approach to suppress any errors from loading plugins, or missing git.
-vim.cmd([[silent! call plug#begin('~/.config/nvim/plugged')]])
+-- function for auto-creating Github URL
+local gh = function(_strlist)
+            local output = {}
+            for _i,_s in ipairs(_strlist) do
+              output[_i] = "https://github.com/" .. _s
+            end
+            return output
+           end
 
-Plug 'inkarkat/vim-ingo-library'                    -- Needed by vim-mark
-Plug 'inkarkat/vim-mark'                            -- Multiple colors
-Plug 'liuchengxu/vista.vim'                         -- Tagbar for functions, symbols, etc
-Plug 'kyazdani42/nvim-web-devicons'                 -- for lualine, markdown, etc
-Plug 'neovim/nvim-lspconfig'                        -- all the LSP server configs
-Plug 'nvim-lualine/lualine.nvim'                    -- statusline
-Plug 'nvim-lua/plenary.nvim'                        -- needed by telescope, codecompanion
-Plug 'nvim-telescope/telescope.nvim'                -- telescope
-Plug('nvim-treesitter/nvim-treesitter', {           --
-    ['do'] = function()
-        vim.cmd([[TSUpdate]])
-    end
-})
-Plug 'MeanderingProgrammer/render-markdown.nvim'    -- Rendering markdown files
-Plug 'olimorris/codecompanion.nvim'                 -- AI completion
-Plug 'saghen/blink.cmp'                             -- for completion
-Plug 'savq/melange'                                 -- Colorscheme
-Plug 'vim-scripts/auto-pairs-gentle'                -- needs extra config
-vim.fn['plug#end']()
+vim.pack.add(gh({
+                "inkarkat/vim-ingo-library",                -- needed by vim-mark
+                "inkarkat/vim-mark",                        -- Multiple colours
+                "liuchengxu/vista.vim",                     -- Tagbar
+                "kyazdani42/nvim-web-devicons",             -- for lualine, markdown, etc
+                "neovim/nvim-lspconfig",                    -- all the LSP server configs
+                "nvim-lualine/lualine.nvim",                -- statusline
+                "nvim-lua/plenary.nvim",                    -- needed by telescope, codecompanion
+                "nvim-telescope/telescope.nvim",            -- telescope
+                "MeanderingProgrammer/render-markdown.nvim",-- Rendering markdown files
+                "saghen/blink.lib",                         -- for completion
+                "saghen/blink.cmp",                         -- for completion
+                })
+            )
 
--- Have not used these for a while.
---Plug 'lukas-reineke/indent-blankline.nvim'          -- for showing current indent
+-- locally managed plugins with my custom changes
+vim.cmd.packadd("auto-pairs-gentle")                        -- needs extra config
+vim.cmd.packadd("melange")                                  -- Colorscheme
 
 ---------------- START auto-pairs-gentle config   ------------------
 vim.g.AutoPairsUseInsertedCount = 1
@@ -35,27 +33,18 @@ vim.g.AutoPairsUseInsertedCount = 1
 ---------------- START blink.cmp   configuration  ------------------
 -- fuzzy search binary is in
 -- ~/.config/nvim/plugged/blink.cmp/target/release/libblink_cmp_fuzzy.so
-require('blink.cmp').setup({
+local cmp = require("blink.cmp")
+cmp.build():pwait()
+cmp.setup({
     completion  = { documentation   = { auto_show = true },
                     ghost_text      = { enabled   = true },
                   },
     fuzzy       = { implementation  = 'prefer_rust' },
     keymap      = { preset          = 'super-tab' },
-    selection   = { preselect       = false },
+    --selection   = { preselect       = false },
     signature   = { enabled         = true },
 })
 ---------------- END   blink.cmp   configuration  ------------------
-
----------------- START indent-bl.. configuration  ------------------
--- Disable. Haven't used it for a while
--- require('ibl').setup({
---     --show_current_context = true,
---     --show_current_context_start = true,
---     -- use_treesitter = true,           -- ibl v2
---     -- use_treesitter_scope = true,     -- ibl v2
---     scope = { enabled = true },
---    })
----------------- END   indent-bl.. configuration  ------------------
 
 ---------------- START lualine     configuration  ------------------
 if vim.g.have_git then
@@ -90,7 +79,7 @@ require('render-markdown').setup({
     }
 })
 -- register `markdown` as a parser for `codecompanion` files
--- vim.treesitter.language.register("markdown", "codecompanion")
+vim.treesitter.language.register("markdown", "codecompanion")
 
 ----------------  END  render-markdown config     ------------------
 
