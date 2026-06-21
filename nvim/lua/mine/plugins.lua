@@ -73,10 +73,10 @@ end
 require('render-markdown').setup({
     file_types = { "markdown", "codecompanion" },
     completions = { lsp = { enabled = true } },
-    opts = {
-      render_modes = true,          -- render in all modes
-      sign = { enabled = false },   -- turn off in the status column
-    }
+    --opts = {  -- not valid any more
+    --  render_modes = true,          -- render in all modes
+    --  sign = { enabled = false },   -- turn off in the status column
+    --}
 })
 -- register `markdown` as a parser for `codecompanion` files
 vim.treesitter.language.register("markdown", "codecompanion")
