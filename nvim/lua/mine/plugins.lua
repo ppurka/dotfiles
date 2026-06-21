@@ -77,6 +77,7 @@ require('render-markdown').setup({
     --  render_modes = true,          -- render in all modes
     --  sign = { enabled = false },   -- turn off in the status column
     --}
+    latex = { enabled = false },        -- disable latex
 })
 -- register `markdown` as a parser for `codecompanion` files
 vim.treesitter.language.register("markdown", "codecompanion")
